@@ -5,5 +5,6 @@ public class InvestorProfile{
     private String investorId;
     private String fullName;
     private String email;
-    private b 
+    private boolean active;
+    private Date created;
 }

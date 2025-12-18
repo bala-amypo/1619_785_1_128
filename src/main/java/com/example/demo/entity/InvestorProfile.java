@@ -4,5 +4,6 @@ public class InvestorProfile{
     private Long id;
     private String investorId;
     private String fullName;
-    private  
+    private String email;
+    private b 
 }

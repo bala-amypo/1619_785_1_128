@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 public class InvestorProfile{
 
     @Id
-    @GeneratedType
+    @GeneratedType(strategy =)
     private Long id;
     private String investorId;
     private String fullName;

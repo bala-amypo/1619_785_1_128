@@ -2,9 +2,11 @@ package com.example.demo.entity;
 
 import jakarta.persistence.Entity;
 
+
 @Entity
 public class InvestorProfile{
 
+    @Id
     private Long id;
     private String investorId;
     private String fullName;
@@ -12,6 +14,6 @@ public class InvestorProfile{
     private boolean active;
     private Date created;
 
-    
+
 
 }

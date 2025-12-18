@@ -1,6 +1,6 @@
 package com.example.demo.entity;
 
-import org.springframeworks.
+import jakarta.persistence.Entity
 
 @Entity
 public class InvestorProfile{

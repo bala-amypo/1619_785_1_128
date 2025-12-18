@@ -1,7 +1,7 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.Entity;
-
+import jakarta.per
 
 @Entity
 public class InvestorProfile{

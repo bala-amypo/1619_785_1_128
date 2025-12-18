@@ -1,6 +1,6 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.Entity
+import jakarta.persistence.Entity;
 
 @Entity
 public class InvestorProfile{
@@ -11,4 +11,7 @@ public class InvestorProfile{
     private String email;
     private boolean active;
     private Date created;
+
+    
+
 }

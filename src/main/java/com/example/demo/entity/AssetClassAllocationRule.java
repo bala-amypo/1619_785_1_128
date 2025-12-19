@@ -6,5 +6,6 @@ package com.example.demo.entity;
 public class AssetClassAllocationRule{
     private Long id;
     private Long investorId;
-    private 
+    private Double targetPercentage;
+    
 }

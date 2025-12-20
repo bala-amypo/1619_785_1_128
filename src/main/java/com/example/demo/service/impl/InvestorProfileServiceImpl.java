@@ -19,6 +19,12 @@ public class InvestorProfileServiceImpl implements InvestorProfileService{
         return Investor.findByInvestorId(investorId);
     }
     @Override 
-    public List<InvestorProfile> getAllInvestor()
+    public List<InvestorProfile> getAllInvestor(){
+        return Investor.findAll();
+    }
+    @Override 
+    public InvestorProfile updateInvestorStatus(Long id,boolean active){
+        return Investor.save(investor);
+    }
 
 }

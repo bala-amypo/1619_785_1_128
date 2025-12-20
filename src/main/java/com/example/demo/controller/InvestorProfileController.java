@@ -7,5 +7,9 @@ public class InvestorProfileController{
 
     @Autowired InvestorProfileService pservice;
     @PostMapping("/createInvestordata")
-    public InvestorProfile maddata(@RequestBody )
+    public InvestorProfile maddata(@RequestBody InvestorProfile investor){
+        return pservice.createInvestor(investor)
+    }
+    @GetMapping("/getInvestorByIds/{id}")
+    public 
 }

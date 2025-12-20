@@ -6,6 +6,5 @@ public interface InvestorProfileService{
 
     InvestorProfile createInvestor(InvestorProfile investor);
     InvestorProfile getInvestorById(Long id);
-    
-
+    InvestorProfile findByInvestor
 }

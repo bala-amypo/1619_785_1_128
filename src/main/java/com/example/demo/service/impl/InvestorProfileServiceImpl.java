@@ -10,6 +10,9 @@ public class InvestorProfileServiceImpl implements InvestorProfileService{
     public InvestorProfile createInvestor(InvestorProfile investor){
         return Investor.save(investor);
     }
-    public getInvestorById(Long id)
+    @Override
+    public List<InvestorProfile> getInvestorById(Long id){
+        return Investor.findAll(id);
+    }
 
 }

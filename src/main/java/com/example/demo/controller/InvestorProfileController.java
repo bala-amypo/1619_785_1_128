@@ -23,10 +23,8 @@ public class InvestorProfileController{
         return pservice.getAllInvestor();
     }
     @PutMapping("/update/{id}")
-    public  InvestorProfile asudata(Long id,boolean active){
-        return pservice.
-    }
-
+    public  InvestorProfile asudata(@PathVariable Long id @RequestParam boolean active){
+        return pservice.updateInvestorStatus(id,active);
     }
 
 }

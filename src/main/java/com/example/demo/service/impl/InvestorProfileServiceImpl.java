@@ -7,8 +7,9 @@ public class InvestorProfileServiceImpl implements InvestorProfileService{
 
     @Autowired InvestorProfileRepository Investor;
     @Override 
-    public InvestorProfileRepository createInvestor(InvestorProfile investor){
+    public InvestorProfile createInvestor(InvestorProfile investor){
         return Investor.save(investor);
     }
+    public getInvestorById(Long id)
 
 }

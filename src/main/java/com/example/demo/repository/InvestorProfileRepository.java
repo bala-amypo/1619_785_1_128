@@ -6,5 +6,5 @@ import com.example.demo.entity.InvestorProfile;
 
 @Repository
 public interface InvestorProfileRepository extends JpaRepository<InvestorProfile, Long>{
-
+    
 }

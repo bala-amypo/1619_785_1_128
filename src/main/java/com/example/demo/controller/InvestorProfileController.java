@@ -18,9 +18,11 @@ public class InvestorProfileController{
     public InvestorProfile rajdata(@PathVariable String investorId){
         return pservice.findByInvestorId(String investorId)
     }
-    @GetMapping("")
-    public InvestorProfile findByInvestorId(String investorId){
-        
+    @GetMapping("/getAllInvestor")
+    public List<InvestorProfile> baldata(){
+        return pservice.
+    }
+
     }
 
 }

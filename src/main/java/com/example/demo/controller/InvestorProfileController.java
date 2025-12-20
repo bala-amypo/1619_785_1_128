@@ -1,39 +1,40 @@
 package com.example.demo.controller;
 
+import com.example.demo.entity.InvestorProfile;
 import com.example.demo.service.InvestorProfileService;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
-public class InvestorProfileController{
+public class InvestorProfileController {
 
-    @Autowired InvestorProfileService pservice;
+    @Autowired
+    private InvestorProfileService pservice;
+
     @PostMapping("/createInvestordata")
-    public InvestorProfile maddata(@RequestBody InvestorProfile investor){
+    public InvestorProfile maddata(@RequestBody InvestorProfile investor) {
         return pservice.createInvestor(investor);
     }
+
     @GetMapping("/getInvestorByIds/{id}")
-    public List<InvestorProfile> dandata(@PathVariable Long id){
+    public InvestorProfile dandata(@PathVariable Long id) {
         return pservice.getInvestorById(id);
     }
+
     @GetMapping("/findByInvestorId/{investorId}")
-    public InvestorProfile rajdata(@PathVariable String investorId){
-        return pservice.findByInvestorId(String investorId)
-    }
-    @GetMapping("/getAllInvestor")
-    public List<InvestorProfile> baldata(){
-        return pservice.getAllInvestor();
-    }
-    @PutMapping("/update/{id}")
-    public  InvestorProfile asudata(@PathVariable Long id ,@RequestParam boolean active){
-        return pservice.updateInvestorStatus(id,active);
+    public InvestorProfile rajdata(@PathVariable String investorId) {
+        return pservice.findByInvestorId(investorId);
     }
 
+    @GetMapping("/getAllInvestor")
+    public List<InvestorProfile> baldata() {
+        return pservice.getAllInvestor();
+    }
+
+    @PutMapping("/update/{id}")
+    public InvestorProfile asudata(@PathVariable Long id, @RequestParam boolean active) {
+        return pservice.updateInvestorStatus(id, active);
+    }
 }

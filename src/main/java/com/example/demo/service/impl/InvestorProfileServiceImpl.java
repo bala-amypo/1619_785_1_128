@@ -12,8 +12,7 @@ import com.example.demo.service.InvestorProfileService;
 @Service
 public class InvestorProfileServiceImpl implements InvestorProfileService {
 
-    @Autowired
- InvestorProfileRepository investorRepository;
+    @Autowired InvestorProfileRepository investorRepository;
 
     @Override
     public InvestorProfile createInvestor(InvestorProfile investor) {

@@ -6,5 +6,6 @@ package com.example.demo.controller;
 public class InvestorProfileController{
 
     @Autowired InvestorProfileService pservice;
-    @PostMapping("/")
+    @PostMapping("/createInvestordata")
+    public InvestorProfile maddata(@RequestBody )
 }

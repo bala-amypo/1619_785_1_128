@@ -37,7 +37,7 @@ public class InvestorProfile{
 
     public InvestorProfile(Long id,String investorID,String fullName,String email,boolean active,Date created){
         this.id=id;
-        this.investorId=investorId
+        this.investorId=investorId;
         this.fullName=fullName;
         this.email=email;
         this.active=active;

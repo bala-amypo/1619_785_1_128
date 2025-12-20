@@ -12,11 +12,13 @@ public class InvestorProfileServiceImpl implements InvestorProfileService{
     }
     @Override
     public List<InvestorProfile> getInvestorById(Long id){
-        return Investor.find(id);
+        return Investor.findById(id);
     }
     @Override
     public InvestorProfile findByInvestorId(String investorId){
-
+        return Investor.findByInvestorId(investorId);
     }
+    @Override 
+    public List<InvestorProfile> getAllInvestor()
 
 }

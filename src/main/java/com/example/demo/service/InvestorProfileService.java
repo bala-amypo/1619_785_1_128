@@ -3,5 +3,7 @@ package com.example.demo.service;
 
 
 public interface InvestorProfileService{
-    InvestorProfile createInvest
+
+    InvestorProfile createInvestor(InvestorProfile investor);
+
 }

@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
-
+import com.example.demo.entity.InvestorProfile;
+import java.utill.List;
 
 public interface InvestorProfileService{
 

@@ -11,5 +11,7 @@ public class InvestorProfileController{
         return pservice.createInvestor(investor)
     }
     @GetMapping("/getInvestorByIds/{id}")
-    public 
+    public List<InvestorProfile> dandata(){
+        return pservice.getInvestorById()
+    }
 }

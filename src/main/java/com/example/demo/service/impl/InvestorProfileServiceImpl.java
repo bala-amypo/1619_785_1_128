@@ -6,6 +6,11 @@ package com.example.demo.service.impl;
 public class InvestorProfileServiceImpl implements InvestorProfileService{
 
     @Autowired
-    private 
+    private InvestorProfileServiceRepository repository;
+
+    @Override
+    public InvestorProfile createInvestor(InvestorProfile investor){
+        
+    }
 
 }

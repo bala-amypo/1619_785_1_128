@@ -20,6 +20,10 @@ public class InvestorProfileController{
     }
     @GetMapping("/getAllInvestor")
     public List<InvestorProfile> baldata(){
+        return pservice.getAllInvestor();
+    }
+    @PutMapping("/update/{id}")
+    public  InvestorProfile asudata(Long id,boolean active){
         return pservice.
     }
 

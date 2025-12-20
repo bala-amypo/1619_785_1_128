@@ -14,6 +14,6 @@ public class InvestorProfileController{
     public List<InvestorProfile> dandata(@PathVariable Long id){
         return pservice.getInvestorById(id);
     }
-    @GetMapping("")
-    
+    @GetMapping("get")
+    public InvestorProfile getInvestorById(Long id);
 }

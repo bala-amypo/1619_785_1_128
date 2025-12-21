@@ -2,39 +2,43 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.InvestorProfile;
 import com.example.demo.service.InvestorProfileService;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/investors")
+@RequiredArgsConstructor
+@Tag(name = "Investor Profile")
 public class InvestorProfileController {
 
-    @Autowired
-    private InvestorProfileService pservice;
+    private final InvestorProfileService investorProfileService;
 
-    @PostMapping("/createInvestordata")
-    public InvestorProfile maddata(@RequestBody InvestorProfile investor) {
-        return pservice.createInvestor(investor);
+    @PostMapping
+    public InvestorProfile createInvestor(@RequestBody InvestorProfile investor) {
+        return investorProfileService.createInvestor(investor);
     }
 
-    @GetMapping("/getInvestorByIds/{id}")
-    public InvestorProfile dandata(@PathVariable Long id) {
-        return pservice.getInvestorById(id);
+    @GetMapping("/{id}")
+    public InvestorProfile getInvestorById(@PathVariable Long id) {
+        return investorProfileService.getInvestorById(id);
     }
 
-    @GetMapping("/findByInvestorId/{investorId}")
-    public InvestorProfile rajdata(@PathVariable String investorId) {
-        return pservice.findByInvestorId(investorId);
+    @GetMapping
+    public List<InvestorProfile> getAllInvestors() {
+        return investorProfileService.getAllInvestors();
     }
 
-    @GetMapping("/getAllInvestor")
-    public List<InvestorProfile> baldata() {
-        return pservice.getAllInvestor();
+    @PutMapping("/{id}/status")
+    public InvestorProfile updateStatus(@PathVariable Long id,
+                                        @RequestParam boolean active) {
+        return investorProfileService.updateInvestorStatus(id, active);
     }
 
-    @PutMapping("/update/{id}")
-    public InvestorProfile asudata(@PathVariable Long id, @RequestParam boolean active) {
-        return pservice.updateInvestorStatus(id, active);
+    @GetMapping("/lookup/{investorId}")
+    public InvestorProfile findByInvestorId(@PathVariable String investorId) {
+        return investorProfileService.findByInvestorId(investorId);
     }
 }

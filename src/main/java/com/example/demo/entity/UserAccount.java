@@ -1,24 +1,18 @@
 package com.example.demo.entity;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import com.example.demo.entity.enums.RoleType;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserAccount {
 
     private Long id;
     private String username;
-    private String email;
     private String password;
     private RoleType role;
-
-    public UserAccount(String username, String email, String password, RoleType role) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-    }
-
-    public UserAccount() {}
-
-    public void setId(Long id) { this.id = id; }
-    public RoleType getRole() { return role; }
+    private boolean enabled;
 }

@@ -1,12 +1,8 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
-@Data
-@NoArgsConstructor
 public class InvestorProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,10 +15,53 @@ public class InvestorProfile {
     private String email;
     private Boolean active;
 
+    public InvestorProfile() {
+    }
+
     public InvestorProfile(String investorId, String fullName, String email, Boolean active) {
         this.investorId = investorId;
         this.fullName = fullName;
         this.email = email;
+        this.active = active;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getInvestorId() {
+        return investorId;
+    }
+
+    public void setInvestorId(String investorId) {
+        this.investorId = investorId;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
         this.active = active;
     }
 }

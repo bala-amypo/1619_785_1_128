@@ -9,11 +9,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/investors")
-public class InvestorController {
+public class InvestorProfileController {
 
     private final InvestorProfileServiceImpl service;
 
-    public InvestorController(InvestorProfileServiceImpl service) {
+    public InvestorProfileController(InvestorProfileServiceImpl service) {
         this.service = service;
     }
 

@@ -9,3 +9,4 @@ public interface RebalancingAlertRecordRepository {
     Optional<RebalancingAlertRecord> findById(Long id);
     List<RebalancingAlertRecord> findByInvestorId(Long investorId);
 }
+

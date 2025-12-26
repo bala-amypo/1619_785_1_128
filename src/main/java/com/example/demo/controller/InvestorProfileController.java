@@ -13,27 +13,24 @@ import com.example.demo.service.impl.InvestorProfileServiceImpl;
 @RequestMapping("/api/investors")
 public class InvestorProfileController {
 
-    private final InvestorProfileServiceImpl investorService;
+    private final InvestorProfileServiceImpl service;
 
-    public InvestorProfileController(InvestorProfileServiceImpl investorService) {
-        this.investorService = investorService;
+    public InvestorProfileController(InvestorProfileServiceImpl service) {
+        this.service = service;
     }
 
     @PostMapping
-    public ResponseEntity<InvestorProfile> createInvestor(
-            @RequestBody InvestorProfile investor) {
-        return new ResponseEntity<>(
-                investorService.createInvestor(investor),
-                HttpStatus.CREATED);
+    public ResponseEntity<InvestorProfile> create(@RequestBody InvestorProfile investor) {
+        return new ResponseEntity<>(service.createInvestor(investor), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<InvestorProfile> getInvestorById(@PathVariable Long id) {
-        return ResponseEntity.ok(investorService.getInvestorById(id));
+    public ResponseEntity<InvestorProfile> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(service.getInvestorById(id));
     }
 
     @GetMapping
-    public ResponseEntity<List<InvestorProfile>> getAllInvestors() {
-        return ResponseEntity.ok(investorService.getAllInvestors());
+    public ResponseEntity<List<InvestorProfile>> getAll() {
+        return ResponseEntity.ok(service.getAllInvestors());
     }
 }

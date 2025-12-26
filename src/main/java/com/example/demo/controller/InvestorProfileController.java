@@ -1,44 +1,39 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.InvestorProfile;
-import com.example.demo.service.InvestorProfileService;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import com.example.demo.entity.InvestorProfile;
+import com.example.demo.service.impl.InvestorProfileServiceImpl;
 
 @RestController
 @RequestMapping("/api/investors")
-@RequiredArgsConstructor
-@Tag(name = "Investor Profile")
 public class InvestorProfileController {
 
-    private final InvestorProfileService investorProfileService;
+    private final InvestorProfileServiceImpl investorService;
+
+    public InvestorProfileController(InvestorProfileServiceImpl investorService) {
+        this.investorService = investorService;
+    }
 
     @PostMapping
-    public InvestorProfile createInvestor(@RequestBody InvestorProfile investor) {
-        return investorProfileService.createInvestor(investor);
+    public ResponseEntity<InvestorProfile> createInvestor(
+            @RequestBody InvestorProfile investor) {
+        return new ResponseEntity<>(
+                investorService.createInvestor(investor),
+                HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public InvestorProfile getInvestorById(@PathVariable Long id) {
-        return investorProfileService.getInvestorById(id);
+    public ResponseEntity<InvestorProfile> getInvestorById(@PathVariable Long id) {
+        return ResponseEntity.ok(investorService.getInvestorById(id));
     }
 
     @GetMapping
-    public List<InvestorProfile> getAllInvestors() {
-        return investorProfileService.getAllInvestors();
-    }
-
-    @PutMapping("/{id}/status")
-    public InvestorProfile updateStatus(@PathVariable Long id,
-                                        @RequestParam boolean active) {
-        return investorProfileService.updateInvestorStatus(id, active);
-    }
-
-    @GetMapping("/lookup/{investorId}")
-    public InvestorProfile findByInvestorId(@PathVariable String investorId) {
-        return investorProfileService.findByInvestorId(investorId);
+    public ResponseEntity<List<InvestorProfile>> getAllInvestors() {
+        return ResponseEntity.ok(investorService.getAllInvestors());
     }
 }

@@ -1,10 +1,20 @@
 package com.example.demo.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import java.util.*;
 import com.example.demo.entity.UserAccount;
-import java.util.Optional;
 
-public interface UserAccountRepository extends JpaRepository<UserAccount, Long> {
+@Repository
+public class UserAccountRepository {
 
-    Optional<UserAccount> findByUsername(String username); // ✅ REQUIRED
+    private final Map<String, UserAccount> store = new HashMap<>();
+
+    public UserAccount save(UserAccount user) {
+        store.put(user.getUsername(), user);
+        return user;
+    }
+
+    public Optional<UserAccount> findByUsername(String username) {
+        return Optional.ofNullable(store.get(username));
+    }
 }

@@ -1,43 +1,36 @@
 package com.example.demo.service.impl;
 
 import java.util.List;
-import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.InvestorProfile;
 import com.example.demo.repository.InvestorProfileRepository;
+import com.example.demo.service.InvestorProfileService;
 
 @Service
-public class InvestorProfileServiceImpl {
+public class InvestorProfileServiceImpl implements InvestorProfileService {
 
     private final InvestorProfileRepository repository;
 
+    @Autowired
     public InvestorProfileServiceImpl(InvestorProfileRepository repository) {
         this.repository = repository;
     }
 
+    @Override
     public InvestorProfile createInvestor(InvestorProfile investor) {
         return repository.save(investor);
     }
 
+    @Override
     public InvestorProfile getInvestorById(Long id) {
-        Optional<InvestorProfile> optional = repository.findById(id);
-        return optional.orElse(null);
+        return repository.findById(id).orElse(null);
     }
 
+    @Override
     public List<InvestorProfile> getAllInvestors() {
         return repository.findAll();
-    }
-
-    public InvestorProfile updateInvestor(Long id, InvestorProfile investorDetails) {
-        InvestorProfile investor = repository.findById(id).orElse(null);
-        if (investor != null) {
-            investor.setName(investorDetails.getName());
-            investor.setEmail(investorDetails.getEmail());
-            investor.setPhone(investorDetails.getPhone());
-            return repository.save(investor);
-        }
-        return null;
     }
 }

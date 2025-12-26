@@ -1,23 +1,46 @@
 package com.example.demo.entity;
 
-import lombok.*;
-import java.time.LocalDateTime;
 import com.example.demo.entity.enums.AlertSeverity;
+import com.example.demo.entity.enums.AssetClassType;
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
+@Entity
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class RebalancingAlertRecord {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String investorId;
 
-    private double currentPercentage;  // ✅ REQUIRED
-    private double targetPercentage;   // ✅ REQUIRED
+    private Long investorId;
 
-    private boolean resolved;           // ✅ REQUIRED
+    @Enumerated(EnumType.STRING)
+    private AssetClassType assetClass;
+
+    private Double currentPercentage;
+    private Double targetPercentage;
+
+    @Enumerated(EnumType.STRING)
+    private AlertSeverity severity;
 
     private String message;
-    private AlertSeverity severity;
-    private LocalDateTime createdAt;
+    private LocalDateTime timestamp;
+    private Boolean resolved;
+
+    public RebalancingAlertRecord(Long investorId, AssetClassType assetClass, Double currentPercentage,
+            Double targetPercentage, AlertSeverity severity, String message, LocalDateTime timestamp,
+            Boolean resolved) {
+        this.investorId = investorId;
+        this.assetClass = assetClass;
+        this.currentPercentage = currentPercentage;
+        this.targetPercentage = targetPercentage;
+        this.severity = severity;
+        this.message = message;
+        this.timestamp = timestamp;
+        this.resolved = resolved;
+    }
 }

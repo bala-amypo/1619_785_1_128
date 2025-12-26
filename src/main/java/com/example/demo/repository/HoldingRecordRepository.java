@@ -5,6 +5,8 @@ import com.example.demo.entity.enums.AssetClassType;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Repository;
+@Repository
 public interface HoldingRecordRepository {
     HoldingRecord save(HoldingRecord record);
     Optional<HoldingRecord> findById(Long id);

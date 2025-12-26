@@ -8,7 +8,6 @@ import javax.crypto.SecretKey;
 import java.util.Date;
 
 public class JwtTokenProvider {
-    
     private final SecretKey secretKey;
     private final long jwtExpirationInMs;
 

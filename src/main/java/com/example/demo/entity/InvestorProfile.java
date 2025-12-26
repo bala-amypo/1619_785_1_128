@@ -1,42 +1,25 @@
 package com.example.demo.entity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-@Entity
-@Table(name = "investor_profiles")
+
 public class InvestorProfile {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true, nullable = false)
     private String investorId;
-    @Column(nullable = false)
-    private String name;
+    private String fullName;
+    private String email;
     private boolean active;
-    public InvestorProfile() {
-    }
-    public Long getId() {
-        return id;
-    }
-    public String getInvestorId() {
-        return investorId;
-    }
-    public void setInvestorId(String investorId) {
+
+    public InvestorProfile(String investorId, String fullName, String email, boolean active) {
         this.investorId = investorId;
-    }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public boolean isActive() {
-        return active;
-    }
-    public void setActive(boolean active) {
+        this.fullName = fullName;
+        this.email = email;
         this.active = active;
     }
+
+    // Getters and Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public String getInvestorId() { return investorId; }
+    public String getFullName() { return fullName; }
+    public String getEmail() { return email; }
+    public boolean getActive() { return active; }
+    public void setActive(boolean active) { this.active = active; }
 }

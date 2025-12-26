@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface AllocationSnapshotRecordRepository {
-    AllocationSnapshotRecord save(AllocationSnapshotRecord snapshot);
+    AllocationSnapshotRecord save(AllocationSnapshotRecord record);
     Optional<AllocationSnapshotRecord> findById(Long id);
     List<AllocationSnapshotRecord> findAll();
 }
+

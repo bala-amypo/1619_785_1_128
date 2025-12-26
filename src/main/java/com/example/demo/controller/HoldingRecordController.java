@@ -1,39 +1,31 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.HoldingRecord;
-import com.example.demo.service.HoldingRecordService;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import com.example.demo.entity.HoldingRecord;
+import com.example.demo.service.impl.HoldingRecordServiceImpl;
 
 @RestController
 @RequestMapping("/api/holdings")
-@RequiredArgsConstructor
-@Tag(name = "Holdings")
 public class HoldingRecordController {
 
-    private final HoldingRecordService holdingRecordService;
+    private final HoldingRecordServiceImpl service;
+
+    public HoldingRecordController(HoldingRecordServiceImpl service) {
+        this.service = service;
+    }
 
     @PostMapping
-    public HoldingRecord recordHolding(@RequestBody HoldingRecord holding) {
-        return holdingRecordService.recordHolding(holding);
+    public ResponseEntity<HoldingRecord> create(@RequestBody HoldingRecord record) {
+        return ResponseEntity.ok(service.create(record));
     }
 
-    @GetMapping("/investor/{investorId}")
-    public List<HoldingRecord> getHoldingsByInvestor(
-            @PathVariable Long investorId) {
-        return holdingRecordService.getHoldingsByInvestor(investorId);
-    }
-
-    @GetMapping("/{id}")
-    public HoldingRecord getHoldingById(@PathVariable Long id) {
-        return holdingRecordService.getHoldingById(id);
-    }
-
-    @GetMapping
-    public List<HoldingRecord> getAllHoldings() {
-        return holdingRecordService.getAllHoldings();
+    @GetMapping("/{investorId}")
+    public ResponseEntity<List<HoldingRecord>> getByInvestor(
+            @PathVariable String investorId) {
+        return ResponseEntity.ok(service.getByInvestor(investorId));
     }
 }

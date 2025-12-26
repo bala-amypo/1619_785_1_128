@@ -1,20 +1,28 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class InvestorProfile {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    @Column(unique = true)
+    private String investorId;
+
+    private String fullName;
     private String email;
-    private String phone;
+    private Boolean active;
+
+    public InvestorProfile(String investorId, String fullName, String email, Boolean active) {
+        this.investorId = investorId;
+        this.fullName = fullName;
+        this.email = email;
+        this.active = active;
+    }
 }

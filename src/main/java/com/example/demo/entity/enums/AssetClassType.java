@@ -4,6 +4,6 @@ public enum AssetClassType {
     STOCKS,
     BONDS,
     CASH,
-    CRYPTO,
-    REAL_ESTATE
+    REAL_ESTATE,
+    CRYPTO
 }

@@ -1,20 +1,17 @@
 package com.example.demo.controller;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
 import com.example.demo.entity.InvestorProfile;
 import com.example.demo.service.InvestorProfileService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/investors")
+@RequestMapping("/investors")
 public class InvestorProfileController {
 
     private final InvestorProfileService service;
 
-    @Autowired
     public InvestorProfileController(InvestorProfileService service) {
         this.service = service;
     }

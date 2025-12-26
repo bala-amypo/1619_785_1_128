@@ -25,15 +25,24 @@ public class AllocationSnapshotServiceImpl {
     private final HoldingRecordRepository holdingRepository;
     private final AssetClassAllocationRuleRepository ruleRepository;
     private final RebalancingAlertRecordRepository alertRepository;
+    private final com.example.demo.repository.InvestorProfileRepository investorProfileRepository;
 
     public AllocationSnapshotServiceImpl(AllocationSnapshotRecordRepository snapshotRepository,
             HoldingRecordRepository holdingRepository,
             AssetClassAllocationRuleRepository ruleRepository,
-            RebalancingAlertRecordRepository alertRepository) {
+            RebalancingAlertRecordRepository alertRepository,
+            com.example.demo.repository.InvestorProfileRepository investorProfileRepository) {
         this.snapshotRepository = snapshotRepository;
         this.holdingRepository = holdingRepository;
         this.ruleRepository = ruleRepository;
         this.alertRepository = alertRepository;
+        this.investorProfileRepository = investorProfileRepository;
+    }
+
+    public List<AllocationSnapshotRecord> getByInvestor(String investorId) {
+        com.example.demo.entity.InvestorProfile profile = investorProfileRepository.findByInvestorId(investorId)
+                .orElseThrow(() -> new ResourceNotFoundException("Investor not found: " + investorId));
+        return snapshotRepository.findByInvestorId(profile.getId());
     }
 
     public AllocationSnapshotRecord computeSnapshot(Long investorId) {

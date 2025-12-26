@@ -1,46 +1,31 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.AssetClassAllocationRule;
-import com.example.demo.service.AllocationRuleService;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import com.example.demo.entity.AssetClassAllocationRule;
+import com.example.demo.service.impl.AllocationRuleServiceImpl;
 
 @RestController
 @RequestMapping("/api/allocation-rules")
-@RequiredArgsConstructor
-@Tag(name = "Allocation Rules")
 public class AllocationRuleController {
 
-    private final AllocationRuleService allocationRuleService;
+    private final AllocationRuleServiceImpl service;
+
+    public AllocationRuleController(AllocationRuleServiceImpl service) {
+        this.service = service;
+    }
 
     @PostMapping
-    public AssetClassAllocationRule createRule(
+    public ResponseEntity<AssetClassAllocationRule> create(
             @RequestBody AssetClassAllocationRule rule) {
-        return allocationRuleService.createRule(rule);
-    }
-
-    @PutMapping("/{id}")
-    public AssetClassAllocationRule updateRule(@PathVariable Long id,
-                                               @RequestBody AssetClassAllocationRule rule) {
-        return allocationRuleService.updateRule(id, rule);
-    }
-
-    @GetMapping("/investor/{investorId}")
-    public List<AssetClassAllocationRule> getRulesByInvestor(
-            @PathVariable Long investorId) {
-        return allocationRuleService.getRulesByInvestor(investorId);
-    }
-
-    @GetMapping("/{id}")
-    public AssetClassAllocationRule getRuleById(@PathVariable Long id) {
-        return allocationRuleService.getRuleById(id);
+        return ResponseEntity.ok(service.createRule(rule));
     }
 
     @GetMapping
-    public List<AssetClassAllocationRule> getAllRules() {
-        return allocationRuleService.getAllRules();
+    public ResponseEntity<List<AssetClassAllocationRule>> getAll() {
+        return ResponseEntity.ok(service.getAllRules());
     }
 }

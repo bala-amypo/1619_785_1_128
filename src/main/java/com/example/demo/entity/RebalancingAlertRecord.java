@@ -1,8 +1,6 @@
 package com.example.demo.entity;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import lombok.*;
 import java.time.LocalDateTime;
 import com.example.demo.entity.enums.AlertSeverity;
 
@@ -13,6 +11,12 @@ public class RebalancingAlertRecord {
 
     private Long id;
     private String investorId;
+
+    private double currentPercentage;  // ✅ REQUIRED
+    private double targetPercentage;   // ✅ REQUIRED
+
+    private boolean resolved;           // ✅ REQUIRED
+
     private String message;
     private AlertSeverity severity;
     private LocalDateTime createdAt;

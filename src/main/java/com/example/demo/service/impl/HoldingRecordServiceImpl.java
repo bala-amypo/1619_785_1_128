@@ -1,33 +1,29 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.entity.HoldingRecord;
+import java.util.*;
+import com.example.demo.entity.*;
 import com.example.demo.repository.HoldingRecordRepository;
-import java.util.List;
-import java.util.Optional;
 
 public class HoldingRecordServiceImpl {
-    private final HoldingRecordRepository holdingRecordRepository;
 
-    public HoldingRecordServiceImpl(HoldingRecordRepository holdingRecordRepository) {
-        this.holdingRecordRepository = holdingRecordRepository;
+    private final HoldingRecordRepository repo;
+
+    public HoldingRecordServiceImpl(HoldingRecordRepository repo) {
+        this.repo = repo;
     }
 
-    public HoldingRecord recordHolding(HoldingRecord holding) {
-        validateValue(holding.getCurrentValue());
-        return holdingRecordRepository.save(holding);
+    public HoldingRecord recordHolding(HoldingRecord record) {
+        if (record.getCurrentValue() <= 0) {
+            throw new IllegalArgumentException("Value must be > 0");
+        }
+        return repo.save(record);
     }
 
     public List<HoldingRecord> getHoldingsByInvestor(Long investorId) {
-        return holdingRecordRepository.findByInvestorId(investorId);
+        return repo.findByInvestorId(investorId);
     }
 
     public Optional<HoldingRecord> getHoldingById(Long id) {
-        return holdingRecordRepository.findById(id);
-    }
-
-    private void validateValue(double value) {
-        if (value <= 0) {
-            throw new IllegalArgumentException("Holding value must be > 0");
-        }
+        return repo.findById(id);
     }
 }

@@ -1,13 +1,9 @@
 package com.example.demo.repository;
 
-import java.util.*;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import com.example.demo.entity.InvestorProfile;
 
-import org.springframework.stereotype.Repository;
 @Repository
-public interface InvestorProfileRepository {
-    InvestorProfile save(InvestorProfile investor);
-    Optional<InvestorProfile> findById(Long id);
-    List<InvestorProfile> findAll();
-    Optional<InvestorProfile> findByInvestorId(String investorId);
+public interface InvestorProfileRepository extends JpaRepository<InvestorProfile, Long> {
 }

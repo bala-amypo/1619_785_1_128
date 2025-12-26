@@ -2,7 +2,7 @@ package com.example.demo.controller;
 
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,22 +15,30 @@ public class InvestorProfileController {
 
     private final InvestorProfileServiceImpl service;
 
+    @Autowired
     public InvestorProfileController(InvestorProfileServiceImpl service) {
         this.service = service;
     }
 
+    // Create a new investor
     @PostMapping
-    public ResponseEntity<InvestorProfile> create(@RequestBody InvestorProfile investor) {
-        return new ResponseEntity<>(service.createInvestor(investor), HttpStatus.CREATED);
+    public ResponseEntity<InvestorProfile> createInvestor(@RequestBody InvestorProfile investor) {
+        InvestorProfile created = service.createInvestor(investor);
+        return ResponseEntity.ok(created);
     }
 
+    // Get investor by ID
     @GetMapping("/{id}")
-    public ResponseEntity<InvestorProfile> getById(@PathVariable Long id) {
-        return ResponseEntity.ok(service.getInvestorById(id));
+    public ResponseEntity<InvestorProfile> getInvestorById(@PathVariable Long id) {
+        return service.getInvestorById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
+    // Get all investors
     @GetMapping
-    public ResponseEntity<List<InvestorProfile>> getAll() {
-        return ResponseEntity.ok(service.getAllInvestors());
+    public ResponseEntity<List<InvestorProfile>> getAllInvestors() {
+        List<InvestorProfile> investors = service.getAllInvestors();
+        return ResponseEntity.ok(investors);
     }
 }

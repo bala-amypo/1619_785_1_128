@@ -1,8 +1,6 @@
 package com.example.demo.entity;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import lombok.*;
 import java.time.LocalDateTime;
 
 @Data
@@ -13,5 +11,5 @@ public class AllocationSnapshotRecord {
     private Long id;
     private String investorId;
     private String snapshotJson;
-    private LocalDateTime capturedAt;
+    private LocalDateTime capturedAt;   // ✅ FIXED TYPE
 }

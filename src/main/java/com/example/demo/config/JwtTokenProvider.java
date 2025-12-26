@@ -1,50 +1,34 @@
 package com.example.demo.config;
 
-import com.example.demo.entity.UserAccount;
-import io.jsonwebtoken.*;
-import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.Authentication;
-import javax.crypto.SecretKey;
-import java.util.Date;
+import java.util.Base64;
 
 public class JwtTokenProvider {
-    private final SecretKey secretKey;
-    private final long jwtExpirationInMs;
 
-    public JwtTokenProvider(String secret, long jwtExpirationInMs) {
-        this.secretKey = Keys.hmacShaKeyFor(secret.getBytes());
-        this.jwtExpirationInMs = jwtExpirationInMs;
+    private final String secret;
+    private final Long validity;
+
+    public JwtTokenProvider(String secret, Long validity) {
+        this.secret = secret;
+        this.validity = validity;
     }
 
-    public String generateToken(Authentication authentication, UserAccount user) {
-        String username = authentication.getName();
-        Date now = new Date();
-        Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
+    public String generateToken(Authentication auth, Object user) {
+        return Base64.getEncoder().encodeToString(
+                (auth.getName() + ":" + validity).getBytes()
+        );
+    }
 
-        return Jwts.builder()
-                .setSubject(username)
-                .setIssuedAt(now)
-                .setExpiration(expiryDate)
-                .claim("userId", user.getId())
-                .signWith(secretKey)
-                .compact();
+    public boolean validateToken(String token) {
+        try {
+            Base64.getDecoder().decode(token);
+            return token.contains(":");
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public String getUsernameFromToken(String token) {
-        Claims claims = Jwts.parserBuilder()
-                .setSigningKey(secretKey)
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
-        return claims.getSubject();
-    }
-
-    public boolean validateToken(String authToken) {
-        try {
-            Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(authToken);
-            return true;
-        } catch (Exception ex) {
-            return false;
-        }
+        return new String(Base64.getDecoder().decode(token)).split(":")[0];
     }
 }

@@ -1,8 +1,10 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.RebalancingAlertRecord;
+import com.example.demo.entity.InvestorProfile;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.RebalancingAlertRecordRepository;
+import com.example.demo.repository.InvestorProfileRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,9 +13,18 @@ import java.util.List;
 public class RebalancingAlertServiceImpl {
 
     private final RebalancingAlertRecordRepository repository;
+    private final com.example.demo.repository.InvestorProfileRepository investorProfileRepository;
 
-    public RebalancingAlertServiceImpl(RebalancingAlertRecordRepository repository) {
+    public RebalancingAlertServiceImpl(RebalancingAlertRecordRepository repository,
+            com.example.demo.repository.InvestorProfileRepository investorProfileRepository) {
         this.repository = repository;
+        this.investorProfileRepository = investorProfileRepository;
+    }
+
+    public List<RebalancingAlertRecord> getAlertsForInvestor(String investorId) {
+        com.example.demo.entity.InvestorProfile profile = investorProfileRepository.findByInvestorId(investorId)
+                .orElseThrow(() -> new ResourceNotFoundException("Investor not found: " + investorId));
+        return getAlertsByInvestor(profile.getId());
     }
 
     public RebalancingAlertRecord createAlert(RebalancingAlertRecord alert) {

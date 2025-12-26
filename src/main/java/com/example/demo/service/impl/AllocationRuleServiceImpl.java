@@ -21,6 +21,15 @@ public class AllocationRuleServiceImpl {
         return repository.save(rule);
     }
 
+    public List<AssetClassAllocationRule> getAllRules() {
+        return repository.findAll();
+    }
+
+    public List<AssetClassAllocationRule> getActiveRules() {
+        // Assuming 'active' means all rules for now, or add specific logic if needed
+        return repository.findAll();
+    }
+
     public AssetClassAllocationRule updateRule(Long id, AssetClassAllocationRule updated) {
         AssetClassAllocationRule existing = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Rule not found: " + id));

@@ -3,23 +3,27 @@ package com.example.demo.entity;
 import java.time.LocalDateTime;
 
 public class AllocationSnapshotRecord {
+
     private Long id;
     private Long investorId;
     private LocalDateTime snapshotDate;
-    private double totalPortfolioValue;
-    private String allocationsJson;
+    private Double totalPortfolioValue;
+    private String detailsJson;
 
-    public AllocationSnapshotRecord(Long investorId, LocalDateTime snapshotDate, double totalPortfolioValue, String allocationsJson) {
+    public AllocationSnapshotRecord(Long investorId, LocalDateTime snapshotDate,
+                                    Double totalPortfolioValue, String detailsJson) {
         this.investorId = investorId;
         this.snapshotDate = snapshotDate;
         this.totalPortfolioValue = totalPortfolioValue;
-        this.allocationsJson = allocationsJson;
+        this.detailsJson = detailsJson;
     }
 
-    // Getters and Setters
+    public AllocationSnapshotRecord() {}
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
+
     public Long getInvestorId() { return investorId; }
     public LocalDateTime getSnapshotDate() { return snapshotDate; }
-    public double getTotalPortfolioValue() { return totalPortfolioValue; }
+    public Double getTotalPortfolioValue() { return totalPortfolioValue; }
 }

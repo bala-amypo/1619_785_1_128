@@ -7,23 +7,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/holdings")
-public class HoldingRecordController {
-
-    private final HoldingRecordService service;
-
-    public HoldingRecordController(HoldingRecordService service) {
-        this.service = service;
-    }
-
-    @PostMapping
-    public ResponseEntity<HoldingRecord> create(@RequestBody HoldingRecord record) {
-        return ResponseEntity.ok(service.createHolding(record));
-    }
-
-    @GetMapping("/investor/{investorId}")
-    public ResponseEntity<List<HoldingRecord>> getByInvestor(@PathVariable Long investorId) {
-        return ResponseEntity.ok(service.getHoldingsByInvestor(investorId));
-    }
+@PostMapping
+public ResponseEntity<HoldingRecord> create(@RequestBody HoldingRecord record) {
+    // FIX: Change .createHolding to .recordHolding
+    return ResponseEntity.ok(service.recordHolding(record));
 }

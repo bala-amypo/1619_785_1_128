@@ -7,9 +7,11 @@ import java.util.List;
 
 public interface HoldingRecordRepository extends JpaRepository<HoldingRecord, Long> {
 
-    // CHANGE THIS: from findByInvestorAndAssetClass to findByInvestorIdAndAssetClass
-    List<HoldingRecord> findByInvestorIdAndAssetClass(Long investorId, AssetClassType assetClass);
+    // Fix 1: Add this method
+    List<HoldingRecord> findByValueGreaterThan(double value);
 
-    // Ensure this also uses InvestorId
-    List<HoldingRecord> findByInvestorId(Long investorId);
+    // Fix 2: Add this method 
+    // (Note: Ensure the parameter names 'Investor' and 'AssetClass' 
+    // match the field names in your HoldingRecord entity exactly)
+    List<HoldingRecord> findByInvestorAndAssetClass(Long investorId, AssetClassType assetClass);
 }

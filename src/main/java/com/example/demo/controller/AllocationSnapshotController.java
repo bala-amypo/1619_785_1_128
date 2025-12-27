@@ -1,26 +1,26 @@
 package com.example.demo.controller;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import com.example.demo.entity.AllocationSnapshotRecord;
-import com.example.demo.service.impl.AllocationSnapshotServiceImpl;
+import com.example.demo.entity.AllocationSnapshot;
+import com.example.demo.service.AllocationSnapshotService;
 
 @RestController
-@RequestMapping("/api/snapshots")
+@RequestMapping("/snapshots")
+@RequiredArgsConstructor
 public class AllocationSnapshotController {
 
-    private final AllocationSnapshotServiceImpl service;
+    private final AllocationSnapshotService service;
 
-    public AllocationSnapshotController(AllocationSnapshotServiceImpl service) {
-        this.service = service;
+    @PostMapping
+    public AllocationSnapshot create(@RequestBody AllocationSnapshot snapshot) {
+        return service.create(snapshot);
     }
 
     @GetMapping("/{investorId}")
-    public ResponseEntity<List<AllocationSnapshotRecord>> getSnapshots(
-            @PathVariable String investorId) {
-        return ResponseEntity.ok(service.getByInvestor(investorId));
+    public List<AllocationSnapshot> getByInvestor(@PathVariable String investorId) {
+        return service.getByInvestor(investorId);
     }
 }

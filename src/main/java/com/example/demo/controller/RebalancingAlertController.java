@@ -1,26 +1,26 @@
 package com.example.demo.controller;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import com.example.demo.entity.RebalancingAlertRecord;
-import com.example.demo.service.impl.RebalancingAlertServiceImpl;
+import com.example.demo.entity.RebalancingAlert;
+import com.example.demo.service.RebalancingAlertService;
 
 @RestController
-@RequestMapping("/api/alerts")
+@RequestMapping("/alerts")
+@RequiredArgsConstructor
 public class RebalancingAlertController {
 
-    private final RebalancingAlertServiceImpl service;
+    private final RebalancingAlertService service;
 
-    public RebalancingAlertController(RebalancingAlertServiceImpl service) {
-        this.service = service;
+    @PostMapping
+    public RebalancingAlert create(@RequestBody RebalancingAlert alert) {
+        return service.create(alert);
     }
 
     @GetMapping("/{investorId}")
-    public ResponseEntity<List<RebalancingAlertRecord>> getAlerts(
-            @PathVariable String investorId) {
-        return ResponseEntity.ok(service.getAlertsForInvestor(investorId));
+    public List<RebalancingAlert> getByInvestor(@PathVariable String investorId) {
+        return service.getByInvestor(investorId);
     }
 }

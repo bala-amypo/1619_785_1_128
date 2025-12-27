@@ -18,29 +18,15 @@ public class InvestorProfileServiceImpl implements InvestorProfileService {
         this.repository = repository;
     }
 
-    @Override
-    public InvestorProfile createInvestor(InvestorProfile investor) {
-        return repository.save(investor);
-    }
-
    @Override
-    public Optional<InvestorProfile> findByInvestorId(Long investorId) {
-       return repository.findByInvestorId(investorId);
-    }
-    @Override
-    public List<InvestorProfile> getAllInvestors() {
-        return repository.findAll();
-    }
+public Optional<InvestorProfile> findByInvestorId(Long investorId) {
+    return repository.findByInvestorId(investorId);
+}
 
-    @Override
-    public InvestorProfile updateInvestorStatus(Long id, boolean active) {
-        InvestorProfile investor = getInvestorById(id);
-        investor.setActive(active);
-        return repository.save(investor);
-    }
-
-    @Override
-    public Optional<InvestorProfile> findByInvestorId(Long investorId) {
-        return repository.findByInvestorId(investorId);
-    }
+@Override
+public InvestorProfile updateInvestorStatus(Long id, boolean active) {
+    InvestorProfile investor = getInvestorById(id);
+    investor.setActive(active);
+    return repository.save(investor);
+}
 }

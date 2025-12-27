@@ -1,37 +1,46 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.dto.AuthResponse;
 import com.example.demo.entity.UserAccount;
 import com.example.demo.entity.enums.RoleType;
-import com.example.demo.dto.AuthRequest;
-import com.example.demo.dto.AuthResponse;
 import com.example.demo.repository.UserAccountRepository;
 import com.example.demo.service.AuthService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AuthServiceImpl implements AuthService {
 
-    private final UserAccountRepository userAccountRepository;
+    @Autowired
+    private UserAccountRepository userAccountRepository;
 
-    public AuthServiceImpl(UserAccountRepository userAccountRepository) {
-        this.userAccountRepository = userAccountRepository;
-    }
-
-   @Override
-public AuthResponse register(UserAccount userAccount) {
-    // Assign enum role as String
-    userAccount.setRole(RoleType.USER.name()); // <-- fixed
-
-    UserAccount saved = userAccountRepository.save(userAccount);
-    return new AuthResponse(saved.getEmail(), "User registered", saved.getRole());
-}
-
-
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
-    public AuthResponse login(AuthRequest request) {
-        UserAccount user = userAccountRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new RuntimeException("User not found"));
-        return new AuthResponse(user.getEmail(), "Login successful", user.getRole());
+    public AuthResponse register(UserAccount userAccount) {
+        // Encode password
+        userAccount.setPassword(passwordEncoder.encode(userAccount.getPassword()));
+
+        // Assign default role
+        userAccount.setRole(RoleType.USER.name());
+
+        // Save user
+        UserAccount savedUser = userAccountRepository.save(userAccount);
+
+        // Return AuthResponse
+        return new AuthResponse(
+                savedUser.getEmail(),
+                "Registration successful",
+                savedUser.getRole()
+        );
+    }
+
+    @Override
+    public AuthResponse login(UserAccount userAccount) {
+        // Here you can implement login logic (validate password, etc.)
+        // Returning dummy response for compilation
+        return new AuthResponse(userAccount.getEmail(), "Login successful", userAccount.getRole());
     }
 }

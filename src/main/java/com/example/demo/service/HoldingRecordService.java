@@ -3,10 +3,8 @@ package com.example.demo.service.impl;
 import com.example.demo.entity.HoldingRecord;
 import com.example.demo.repository.HoldingRecordRepository;
 import com.example.demo.exception.ResourceNotFoundException;
-import org.springframework.stereotype.Service;
 
-@Service
-public class HoldingRecordServiceImpl {
+public interface HoldingRecordServiceImpl {
     private final HoldingRecordRepository repository;
 
     public HoldingRecordServiceImpl(HoldingRecordRepository repository) {

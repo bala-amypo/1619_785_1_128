@@ -1,5 +1,6 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.dto.AuthRequest; // Added missing import
 import com.example.demo.dto.AuthResponse;
 import com.example.demo.entity.UserAccount;
 import com.example.demo.entity.enums.RoleType;
@@ -23,24 +24,24 @@ public class AuthServiceImpl implements AuthService {
         // Encode password
         userAccount.setPassword(passwordEncoder.encode(userAccount.getPassword()));
 
-        // Assign default role
-        userAccount.setRole(RoleType.USER.name());
+        // FIX: Assign Enum directly, not .name() (which is a String)
+        userAccount.setRole(RoleType.USER);
 
         // Save user
         UserAccount savedUser = userAccountRepository.save(userAccount);
 
-        // Return AuthResponse
+        // Return AuthResponse 
+        // FIX: Use .name() here if the constructor expects a String
         return new AuthResponse(
                 savedUser.getEmail(),
                 "Registration successful",
-                savedUser.getRole()
+                savedUser.getRole().name() 
         );
     }
 
     @Override
-    public AuthResponse login(UserAccount userAccount) {
-        // Here you can implement login logic (validate password, etc.)
-        // Returning dummy response for compilation
-        return new AuthResponse(userAccount.getEmail(), "Login successful", userAccount.getRole());
+    public AuthResponse login(AuthRequest request) { 
+        // Logic for authentication goes here
+        return new AuthResponse(request.getEmail(), "Login successful", "");
     }
 }

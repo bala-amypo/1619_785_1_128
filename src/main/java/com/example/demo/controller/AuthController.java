@@ -20,10 +20,9 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public AuthResponse login(@RequestBody AuthRequest request) {
-        UserAccount user = new UserAccount();
-        user.setEmail(request.getEmail());
-        user.setPassword(request.getPassword());
-        return authService.login(user);
-    }
+public AuthResponse login(@RequestBody AuthRequest request) {
+    // PASS THE REQUEST DIRECTLY
+    // Old code was creating a UserAccount entity here, which is wrong.
+    return authService.login(request); 
+}
 }

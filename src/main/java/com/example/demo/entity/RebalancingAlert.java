@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RebalancingAlertRecord {
+public class RebalancingAlert {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

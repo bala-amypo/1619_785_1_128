@@ -24,4 +24,7 @@ public class AuthServiceImpl implements AuthService {
     public UserAccount register(UserAccount user) {
         return userRepo.save(user);
     }
+    public AuthResponse(String token) {
+        this.token = token;
+    }
 }

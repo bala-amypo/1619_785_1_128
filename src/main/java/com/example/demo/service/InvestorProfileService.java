@@ -16,4 +16,6 @@ public interface InvestorProfileService {
     InvestorProfile updateInvestorStatus(Long id, Boolean active);
 
     Optional<InvestorProfile> findByInvestorId(String investorId);
+    void deleteInvestor(Long investorId);
+
 }

@@ -1,33 +1,33 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.entity.UserAccount;
+import com.example.demo.entity.enums.RoleType;
 import com.example.demo.dto.AuthRequest;
 import com.example.demo.dto.AuthResponse;
-import com.example.demo.security.JwtUtil;
-import com.example.demo.service.AuthService;
-import org.springframework.beans.factory.annotation.Autowired;
-import com.example.demo.entity.UserAccount;  
 import com.example.demo.repository.UserAccountRepository;
+import com.example.demo.service.AuthService;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AuthServiceImpl implements AuthService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserAccountRepository userAccountRepository;
 
-    @Autowired
-    private JwtUtil jwtUtil;
+    public AuthServiceImpl(UserAccountRepository userAccountRepository) {
+        this.userAccountRepository = userAccountRepository;
+    }
 
     @Override
-    public AuthResponse authenticate(AuthRequest request) {  // <-- make sure return type is here
-        UserAccount user = userRepository.findByEmail(request.getEmail())
-        .orElseThrow(() -> new RuntimeException("User not found"));
+    public AuthResponse register(UserAccount userAccount) {
+        userAccount.setRole(RoleType.USER.name());  // convert enum to String
+        UserAccount saved = userAccountRepository.save(userAccount);
+        return new AuthResponse(saved.getEmail(), "User registered", saved.getRole());
+    }
 
-
-        // generate JWT
-        String token = jwtUtil.generateToken(user.getEmail());
-
-        // return AuthResponse
-        return new AuthResponse(token, user.getEmail(), user.getRole());
+    @Override
+    public AuthResponse login(AuthRequest request) {
+        UserAccount user = userAccountRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        return new AuthResponse(user.getEmail(), "Login successful", user.getRole());
     }
 }

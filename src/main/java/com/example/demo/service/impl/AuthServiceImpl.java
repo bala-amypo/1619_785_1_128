@@ -2,8 +2,9 @@ package com.example.demo.service.impl;
 
 import com.example.demo.dto.AuthRequest;
 import com.example.demo.dto.AuthResponse;
-import com.example.demo.entity.UserAccount;
-import com.example.demo.repository.UserAccountRepository;
+import com.example.demo.entity.User;
+import com.example.demo.repository.UserRepository;
+import com.example.demo.security.JwtUtil;
 import com.example.demo.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,19 +13,20 @@ import org.springframework.stereotype.Service;
 public class AuthServiceImpl implements AuthService {
 
     @Autowired
-    private UserAccountRepository userRepo;
+    private UserRepository userRepository;
+
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @Override
-    public AuthResponse login(AuthRequest request) {
-        // Minimal stub for tests
-        return new AuthResponse("dummy-token");
-    }
+    public AuthResponse authenticate(AuthRequest request) {  // <-- make sure return type is here
+        User user = userRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
-    @Override
-    public UserAccount register(UserAccount user) {
-        return userRepo.save(user);
-    }
-    public AuthResponse(String token) {
-        this.token = token;
+        // generate JWT
+        String token = jwtUtil.generateToken(user.getEmail());
+
+        // return AuthResponse
+        return new AuthResponse(token, user.getEmail(), user.getRole());
     }
 }

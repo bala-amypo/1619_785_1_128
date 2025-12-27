@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "holdings")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,9 +14,8 @@ public class HoldingRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String investorId;
-
     private String assetName;
+    private Double amount;
 
-    private Double value;
+    private String investorId;
 }

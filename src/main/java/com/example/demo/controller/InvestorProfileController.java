@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.InvestorProfile;
-import com.example.demo.service.impl.InvestorProfileServiceImpl;
-import org.springframework.http.ResponseEntity;
+import com.example.demo.service.InvestorProfileService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,24 +11,25 @@ import java.util.List;
 @RequestMapping("/api/investors")
 public class InvestorProfileController {
 
-    private final InvestorProfileServiceImpl service;
+    private final InvestorProfileService service;
 
-    public InvestorProfileController(InvestorProfileServiceImpl service) {
+    @Autowired
+    public InvestorProfileController(InvestorProfileService service) {
         this.service = service;
     }
 
     @PostMapping
-    public ResponseEntity<InvestorProfile> createInvestor(@RequestBody InvestorProfile investor) {
-        return ResponseEntity.ok(service.createInvestor(investor));
+    public InvestorProfile createInvestor(@RequestBody InvestorProfile investor) {
+        return service.createInvestor(investor);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<InvestorProfile> getInvestor(@PathVariable Long id) {
-        return ResponseEntity.ok(service.getInvestorById(id));
+    public InvestorProfile getInvestorById(@PathVariable Long id) {
+        return service.getInvestorById(id);
     }
 
     @GetMapping
-    public ResponseEntity<List<InvestorProfile>> getAllInvestors() {
-        return ResponseEntity.ok(service.getAllInvestors());
+    public List<InvestorProfile> getAllInvestors() {
+        return service.getAllInvestors();
     }
 }

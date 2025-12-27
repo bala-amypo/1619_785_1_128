@@ -4,9 +4,11 @@ import com.example.demo.entity.AssetClassAllocationRule;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.AssetClassAllocationRuleRepository;
 import com.example.demo.service.AllocationRuleService;
+import org.springframework.stereotype.Service; // ADD THIS IMPORT
 
 import java.util.List;
 
+@Service // ADD THIS ANNOTATION
 public class AllocationRuleServiceImpl implements AllocationRuleService {
 
     private final AssetClassAllocationRuleRepository repository;
@@ -38,8 +40,17 @@ public class AllocationRuleServiceImpl implements AllocationRuleService {
         return repository.findByInvestorId(investorId);
     }
 
+    // Standard method usually required by the Controller/Test
+    @Override
+    public void deleteRule(Long id) {
+        if (!repository.existsById(id)) {
+            throw new ResourceNotFoundException("Rule not found");
+        }
+        repository.deleteById(id);
+    }
+
     private void validatePercentage(Double percentage) {
-        if (percentage < 0 || percentage > 100) {
+        if (percentage == null || percentage < 0 || percentage > 100) {
             throw new IllegalArgumentException("Target percentage must be between 0 and 100");
         }
     }

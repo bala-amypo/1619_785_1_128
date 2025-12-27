@@ -14,15 +14,15 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
     private UserAccountRepository userAccountRepository;
+@Override
+public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    UserAccount user = userAccountRepository.findByEmail(email)
+            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        UserAccount user = userAccountRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-
-        return User.withUsername(user.getEmail())
-                .password(user.getPassword())
-                .roles(user.getRole()) // RoleType is already converted to String in entity
-                .build();
-    }
+    return User.withUsername(user.getEmail())
+            .password(user.getPassword())
+            // Convert the Enum to a String using .name()
+            .roles(user.getRole().name()) 
+            .build();
+}
 }

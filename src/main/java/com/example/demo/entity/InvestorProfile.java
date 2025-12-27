@@ -12,7 +12,6 @@ public class InvestorProfile {
     private Long investorId;     // must match repository
     private boolean active;      // add this
 
-    // getters & setters
     public Long getInvestorId() { return investorId; }
     public void setInvestorId(Long investorId) { this.investorId = investorId; }
 

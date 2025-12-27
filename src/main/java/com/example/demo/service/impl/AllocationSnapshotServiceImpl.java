@@ -1,12 +1,12 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.entity.AllocationSnapshotRecord;
-import com.example.demo.repository.AllocationSnapshotRecordRepository;
-import com.example.demo.service.AllocationSnapshotService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
+
+import com.example.demo.entity.AllocationSnapshot;
+import com.example.demo.repository.AllocationSnapshotRecordRepository;
+import com.example.demo.service.AllocationSnapshotService;
 
 @Service
 @RequiredArgsConstructor
@@ -15,17 +15,17 @@ public class AllocationSnapshotServiceImpl implements AllocationSnapshotService 
     private final AllocationSnapshotRecordRepository repository;
 
     @Override
-    public AllocationSnapshotRecord create(AllocationSnapshotRecord record) {
-        return repository.save(record);
+    public AllocationSnapshot create(AllocationSnapshot snapshot) {
+        return repository.save(snapshot);
     }
 
     @Override
-    public List<AllocationSnapshotRecord> getAllSnapshots() {
-        return repository.findAll();
-    }
-
-    @Override
-    public List<AllocationSnapshotRecord> getByInvestor(String investorId) {
+    public List<AllocationSnapshot> getByInvestor(String investorId) {
         return repository.findByInvestorId(investorId);
+    }
+
+    @Override
+    public List<AllocationSnapshot> getAllSnapshots() {
+        return repository.findAll();
     }
 }

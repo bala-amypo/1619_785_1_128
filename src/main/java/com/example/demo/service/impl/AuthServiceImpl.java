@@ -18,11 +18,14 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public AuthResponse register(UserAccount userAccount) {
-        userAccount.setRole(RoleType.USER.name());  // convert enum to String
-        UserAccount saved = userAccountRepository.save(userAccount);
-        return new AuthResponse(saved.getEmail(), "User registered", saved.getRole());
-    }
+public AuthResponse register(UserAccount userAccount) {
+    // If RoleType enum exists
+    userAccount.setRole(RoleType.USER.name());  // convert enum to String
+
+    UserAccount saved = userAccountRepository.save(userAccount);
+    return new AuthResponse(saved.getEmail(), "User registered", saved.getRole());
+}
+
 
     @Override
     public AuthResponse login(AuthRequest request) {

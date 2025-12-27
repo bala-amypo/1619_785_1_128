@@ -1,10 +1,21 @@
-package com.example.demo.service;
+package com.example.demo.service.impl;
 
 import com.example.demo.entity.HoldingRecord;
-import java.util.List;
+import com.example.demo.repository.HoldingRecordRepository;
+import com.example.demo.exception.ResourceNotFoundException;
+import org.springframework.stereotype.Service;
 
-public interface HoldingRecordService {
-    // Rename/Add these to match what the Controller wants
-    HoldingRecord recordHolding(HoldingRecord record);
-    List<HoldingRecord> getHoldingsByInvestor(Long investorId);
+@Service
+public class HoldingRecordServiceImpl {
+    private final HoldingRecordRepository repository;
+
+    public HoldingRecordServiceImpl(HoldingRecordRepository repository) {
+        this.repository = repository;
+    }
+
+    // Required by lines 246, 253 of the test
+    public HoldingRecord getHoldingById(long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Holding not found"));
+    }
 }

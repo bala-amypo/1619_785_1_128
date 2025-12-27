@@ -1,31 +1,29 @@
 package com.example.demo.controller;
 
-import java.util.List;
-
+import com.example.demo.entity.AssetClassAllocationRule;
+import com.example.demo.service.AllocationRuleService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.demo.entity.AssetClassAllocationRule;
-import com.example.demo.service.impl.AllocationRuleServiceImpl;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/allocation-rules")
 public class AllocationRuleController {
 
-    private final AllocationRuleServiceImpl service;
+    private final AllocationRuleService service;
 
-    public AllocationRuleController(AllocationRuleServiceImpl service) {
+    public AllocationRuleController(AllocationRuleService service) {
         this.service = service;
     }
 
     @PostMapping
-    public ResponseEntity<AssetClassAllocationRule> create(
-            @RequestBody AssetClassAllocationRule rule) {
+    public ResponseEntity<AssetClassAllocationRule> create(@RequestBody AssetClassAllocationRule rule) {
         return ResponseEntity.ok(service.createRule(rule));
     }
 
-    @GetMapping
-    public ResponseEntity<List<AssetClassAllocationRule>> getAll() {
-        return ResponseEntity.ok(service.getAllRules());
+    @GetMapping("/investor/{investorId}")
+    public ResponseEntity<List<AssetClassAllocationRule>> getByInvestor(@PathVariable Long investorId) {
+        return ResponseEntity.ok(service.getRulesByInvestor(investorId));
     }
 }

@@ -2,7 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.InvestorProfile;
 import com.example.demo.service.InvestorProfileService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,23 +13,28 @@ public class InvestorProfileController {
 
     private final InvestorProfileService service;
 
-    @Autowired
     public InvestorProfileController(InvestorProfileService service) {
         this.service = service;
     }
 
     @PostMapping
-    public InvestorProfile createInvestor(@RequestBody InvestorProfile investor) {
-        return service.createInvestor(investor);
+    public ResponseEntity<InvestorProfile> create(@RequestBody InvestorProfile profile) {
+        return ResponseEntity.ok(service.createInvestor(profile));
     }
 
     @GetMapping("/{id}")
-    public InvestorProfile getInvestorById(@PathVariable Long id) {
-        return service.getInvestorById(id);
+    public ResponseEntity<InvestorProfile> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(service.getInvestorById(id));
     }
 
     @GetMapping
-    public List<InvestorProfile> getAllInvestors() {
-        return service.getAllInvestors();
+    public ResponseEntity<List<InvestorProfile>> getAll() {
+        return ResponseEntity.ok(service.getAllInvestors());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        service.deleteInvestor(id);
+        return ResponseEntity.noContent().build();
     }
 }

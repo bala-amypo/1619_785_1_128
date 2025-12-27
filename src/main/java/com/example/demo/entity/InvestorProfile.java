@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class InvestorProfile {
+public class InvestorProfile{
 
     @Id
     private String investorId;

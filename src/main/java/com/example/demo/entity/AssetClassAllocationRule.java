@@ -4,7 +4,9 @@ import com.example.demo.entity.enums.AssetClassType;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "asset_class_allocation_rules")
 public class AssetClassAllocationRule {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,8 +22,8 @@ public class AssetClassAllocationRule {
     public AssetClassAllocationRule() {
     }
 
-    public AssetClassAllocationRule(Long investorId, AssetClassType assetClass, Double targetPercentage,
-            Boolean active) {
+    public AssetClassAllocationRule(Long investorId, AssetClassType assetClass,
+                                    Double targetPercentage, Boolean active) {
         this.investorId = investorId;
         this.assetClass = assetClass;
         this.targetPercentage = targetPercentage;

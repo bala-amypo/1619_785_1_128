@@ -4,12 +4,13 @@ import com.example.demo.entity.enums.RoleType;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "user_accounts")
 public class UserAccount {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
     private String username;
     private String email;
     private String password;
@@ -20,7 +21,8 @@ public class UserAccount {
     public UserAccount() {
     }
 
-    public UserAccount(String username, String email, String password, RoleType role) {
+    public UserAccount(String username, String email,
+                       String password, RoleType role) {
         this.username = username;
         this.email = email;
         this.password = password;

@@ -1,19 +1,72 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+
+import java.time.LocalDateTime;
 
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class AllocationSnapshot {
+@Table(name = "allocation_snapshot_records")
+public class AllocationSnapshotRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String investorId;
-    private String snapshotDate;
+    private Long investorId;
+    private LocalDateTime snapshotDate;
+    private Double totalPortfolioValue;
+
+    @Column(columnDefinition = "TEXT")
+    private String breakdownJson;
+
+    public AllocationSnapshotRecord() {
+    }
+
+    public AllocationSnapshotRecord(Long investorId, LocalDateTime snapshotDate,
+                                    Double totalPortfolioValue, String breakdownJson) {
+        this.investorId = investorId;
+        this.snapshotDate = snapshotDate;
+        this.totalPortfolioValue = totalPortfolioValue;
+        this.breakdownJson = breakdownJson;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getInvestorId() {
+        return investorId;
+    }
+
+    public void setInvestorId(Long investorId) {
+        this.investorId = investorId;
+    }
+
+    public LocalDateTime getSnapshotDate() {
+        return snapshotDate;
+    }
+
+    public void setSnapshotDate(LocalDateTime snapshotDate) {
+        this.snapshotDate = snapshotDate;
+    }
+
+    public Double getTotalPortfolioValue() {
+        return totalPortfolioValue;
+    }
+
+    public void setTotalPortfolioValue(Double totalPortfolioValue) {
+        this.totalPortfolioValue = totalPortfolioValue;
+    }
+
+    public String getBreakdownJson() {
+        return breakdownJson;
+    }
+
+    public void setBreakdownJson(String breakdownJson) {
+        this.breakdownJson = breakdownJson;
+    }
 }

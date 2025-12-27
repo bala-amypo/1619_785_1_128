@@ -1,31 +1,41 @@
 package com.example.demo.service.impl;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import java.util.List;
-
-import com.example.demo.entity.RebalancingAlert;
+import com.example.demo.entity.RebalancingAlertRecord;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.RebalancingAlertRecordRepository;
 import com.example.demo.service.RebalancingAlertService;
 
-@Service
-@RequiredArgsConstructor
+import java.util.List;
+
 public class RebalancingAlertServiceImpl implements RebalancingAlertService {
 
     private final RebalancingAlertRecordRepository repository;
 
+    public RebalancingAlertServiceImpl(RebalancingAlertRecordRepository repository) {
+        this.repository = repository;
+    }
+
     @Override
-    public RebalancingAlert create(RebalancingAlert alert) {
+    public RebalancingAlertRecord createAlert(RebalancingAlertRecord alert) {
+        if (alert.getCurrentPercentage() <= alert.getTargetPercentage()) {
+            throw new IllegalArgumentException(
+                    "Alert requires currentPercentage > targetPercentage");
+        }
         return repository.save(alert);
     }
 
     @Override
-    public List<RebalancingAlert> getByInvestor(String investorId) {
-        return repository.findByInvestorId(investorId);
+    public RebalancingAlertRecord resolveAlert(Long id) {
+        RebalancingAlertRecord alert = repository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Alert not found with id " + id));
+
+        alert.setResolved(true);
+        return repository.save(alert);
     }
 
     @Override
-    public List<RebalancingAlert> getAllAlerts() {
-        return repository.findAll();
+    public List<RebalancingAlertRecord> getAlertsByInvestor(Long investorId) {
+        return repository.findByInvestorId(investorId);
     }
 }

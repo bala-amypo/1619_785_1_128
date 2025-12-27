@@ -1,35 +1,41 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.entity.HoldingRecord;
-import com.example.demo.repository.HoldingRecordRepository;
-import com.example.demo.service.HoldingRecordService;
+import com.example.demo.entity.RebalancingAlertRecord;
+import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.repository.RebalancingAlertRecordRepository;
+import com.example.demo.service.RebalancingAlertService;
 
 import java.util.List;
-import java.util.Optional;
 
-public class HoldingRecordServiceImpl implements HoldingRecordService {
+public class RebalancingAlertServiceImpl implements RebalancingAlertService {
 
-    private final HoldingRecordRepository repository;
+    private final RebalancingAlertRecordRepository repository;
 
-    public HoldingRecordServiceImpl(HoldingRecordRepository repository) {
+    public RebalancingAlertServiceImpl(RebalancingAlertRecordRepository repository) {
         this.repository = repository;
     }
 
     @Override
-    public HoldingRecord recordHolding(HoldingRecord holding) {
-        if (holding.getCurrentValue() <= 0) {
-            throw new IllegalArgumentException("Holding value must be > 0");
+    public RebalancingAlertRecord createAlert(RebalancingAlertRecord alert) {
+        if (alert.getCurrentPercentage() <= alert.getTargetPercentage()) {
+            throw new IllegalArgumentException(
+                    "Alert requires currentPercentage > targetPercentage");
         }
-        return repository.save(holding);
+        return repository.save(alert);
     }
 
     @Override
-    public List<HoldingRecord> getHoldingsByInvestor(Long investorId) {
+    public RebalancingAlertRecord resolveAlert(Long id) {
+        RebalancingAlertRecord alert = repository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Alert not found with id " + id));
+
+        alert.setResolved(true);
+        return repository.save(alert);
+    }
+
+    @Override
+    public List<RebalancingAlertRecord> getAlertsByInvestor(Long investorId) {
         return repository.findByInvestorId(investorId);
-    }
-
-    @Override
-    public Optional<HoldingRecord> getHoldingById(Long id) {
-        return repository.findById(id);
     }
 }

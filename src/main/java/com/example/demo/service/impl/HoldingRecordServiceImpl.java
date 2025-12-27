@@ -1,36 +1,39 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.HoldingRecord;
+import com.example.demo.entity.enums.AssetClassType;
 import com.example.demo.repository.HoldingRecordRepository;
-import com.example.demo.service.HoldingRecordService; // Import the interface
+import com.example.demo.service.HoldingRecordService;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.Optional;
 
-@Service // Tells Spring to create this bean
-public class HoldingRecordServiceImpl implements HoldingRecordService { // MUST implement the interface
+@Service
+public class HoldingRecordServiceImpl implements HoldingRecordService {
 
-    private final HoldingRecordRepository holdingRecordRepository;
+    private final HoldingRecordRepository repository;
 
-    public HoldingRecordServiceImpl(HoldingRecordRepository holdingRecordRepository) {
-        this.holdingRecordRepository = holdingRecordRepository;
+    // Constructor Injection
+    public HoldingRecordServiceImpl(HoldingRecordRepository repository) {
+        this.repository = repository;
     }
 
     @Override
-    public HoldingRecord recordHolding(HoldingRecord holding) {
-        if (holding.getCurrentValue() <= 0) {
-            throw new IllegalArgumentException("Holding value must be > 0");
-        }
-        return holdingRecordRepository.save(holding);
+    public HoldingRecord saveHolding(HoldingRecord record) {
+        return repository.save(record);
     }
 
     @Override
-    public List<HoldingRecord> getHoldingsByInvestor(Long investorId) {
-        return holdingRecordRepository.findByInvestorId(investorId);
+    public List<HoldingRecord> getHoldingsByValue(Double minValue) {
+        return repository.findByValueGreaterThan(minValue);
     }
 
     @Override
-    public Optional<HoldingRecord> getHoldingById(Long id) {
-        return holdingRecordRepository.findById(id);
+    public List<HoldingRecord> getHoldingsByInvestorAndClass(Long investorId, AssetClassType type) {
+        return repository.findByInvestorIdAndAssetClass(investorId, type);
+    }
+
+    @Override
+    public List<HoldingRecord> getAllHoldings() {
+        return repository.findAll();
     }
 }

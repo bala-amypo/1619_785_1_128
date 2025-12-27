@@ -22,6 +22,7 @@ public class AllocationRuleServiceImpl implements AllocationRuleService {
         validatePercentage(rule.getTargetPercentage());
         return repository.save(rule);
     }
+    
 
     @Override
     public AssetClassAllocationRule updateRule(Long id, AssetClassAllocationRule rule) {
@@ -40,11 +41,10 @@ public class AllocationRuleServiceImpl implements AllocationRuleService {
         return repository.findByInvestorId(investorId);
     }
 
-    // Standard method usually required by the Controller/Test
     @Override
     public void deleteRule(Long id) {
         if (!repository.existsById(id)) {
-            throw new ResourceNotFoundException("Rule not found");
+            throw new ResourceNotFoundException("Rule not found with id " + id);
         }
         repository.deleteById(id);
     }

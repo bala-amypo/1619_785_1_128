@@ -1,11 +1,12 @@
 package com.example.demo.repository;
 
+import com.example.demo.entity.AllocationSnapshotRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
+
 import java.util.List;
-import com.example.demo.entity.AllocationSnapshot;
 
 public interface AllocationSnapshotRecordRepository
-        extends JpaRepository<AllocationSnapshot, Long> {
+        extends JpaRepository<AllocationSnapshotRecord, Long> {
 
-    List<AllocationSnapshot> findByInvestorId(String investorId);
+    List<AllocationSnapshotRecord> findByInvestorId(Long investorId);
 }

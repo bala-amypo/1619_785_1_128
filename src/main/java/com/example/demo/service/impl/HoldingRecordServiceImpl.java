@@ -14,15 +14,12 @@ public class HoldingRecordServiceImpl implements HoldingRecordService {
     private HoldingRecordRepository holdingRecordRepository;
 
     @Override
-    public List<HoldingRecord> getAllHoldingsByUserId(Long userId) {
-        return holdingRecordRepository.findByUserId(userId);
-    }
-
-    @Override
-    public HoldingRecord saveHolding(HoldingRecord record) {
+    public HoldingRecord createHolding(HoldingRecord record) {
         return holdingRecordRepository.save(record);
     }
 
-    // Add any other methods defined in your HoldingRecordService interface
-    // such as deleteHolding or getHoldingById
+    @Override
+    public List<HoldingRecord> getHoldingsByInvestor(Long investorId) {
+        return holdingRecordRepository.findByInvestorId(investorId);
+    }
 }

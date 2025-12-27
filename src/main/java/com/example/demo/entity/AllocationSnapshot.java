@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AllocationSnapshotRecord {
+public class AllocationSnapshot {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

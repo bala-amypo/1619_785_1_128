@@ -44,4 +44,9 @@ public class InvestorProfileServiceImpl implements InvestorProfileService {
     public Optional<InvestorProfile> findByInvestorId(String investorId) {
         return repository.findByInvestorId(investorId);
     }
+    @Override
+public void deleteInvestor(Long id) {
+    repository.deleteById(id);
+}
+
 }

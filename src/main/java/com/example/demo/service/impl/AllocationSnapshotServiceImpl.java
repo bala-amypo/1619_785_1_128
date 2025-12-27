@@ -9,9 +9,13 @@ import java.util.List;
 @Service
 public class AllocationSnapshotServiceImpl implements AllocationSnapshotService {
 
+    // These were missing! You must declare them before assigning them
     private final AllocationSnapshotRecordRepository snapshotRepo;
-    // ... other repositories (holdingRepo, ruleRepo, alertRepo)
+    private final HoldingRecordRepository holdingRepo;
+    private final AssetClassAllocationRuleRepository ruleRepo;
+    private final RebalancingAlertRecordRepository alertRepo;
 
+    // Now the constructor can successfully assign the parameters to the fields
     public AllocationSnapshotServiceImpl(
             AllocationSnapshotRecordRepository snapshotRepo,
             HoldingRecordRepository holdingRepo,
@@ -23,13 +27,11 @@ public class AllocationSnapshotServiceImpl implements AllocationSnapshotService 
         this.alertRepo = alertRepo;
     }
 
-    // FIX: Add this method to satisfy the compiler
     @Override
     public List<AllocationSnapshotRecord> getSnapshotsByInvestor(Long investorId) {
         return snapshotRepo.findByInvestorId(investorId);
     }
 
-    // Ensure this one is also implemented as per the interface
     @Override
     public AllocationSnapshotRecord createSnapshot(AllocationSnapshotRecord snapshot) {
         return snapshotRepo.save(snapshot);
@@ -37,7 +39,6 @@ public class AllocationSnapshotServiceImpl implements AllocationSnapshotService 
 
     @Override
     public AllocationSnapshotRecord computeSnapshot(Long investorId) {
-        // Logic for calculating totals
         return new AllocationSnapshotRecord();
     }
 

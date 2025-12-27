@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 @Service
-public interface InvestorProfileService {
+public class InvestorProfileService {
 
     InvestorProfile createInvestor(InvestorProfile investor);
 

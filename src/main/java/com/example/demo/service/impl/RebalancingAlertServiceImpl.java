@@ -1,35 +1,31 @@
 package com.example.demo.service.impl;
 
-import java.util.List;
-
+import com.example.demo.entity.RebalancingAlertRecord;
+import com.example.demo.repository.RebalancingAlertRecordRepository;
+import com.example.demo.service.RebalancingAlertService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.entity.RebalancingAlert;
-import com.example.demo.repository.RebalancingAlertRecordRepository;
-import com.example.demo.repository.InvestorProfileRepository;
-import com.example.demo.service.RebalancingAlertService;
-
-import lombok.RequiredArgsConstructor;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class RebalancingAlertServiceImpl implements RebalancingAlertService {
 
-    private final RebalancingAlertRecordRepository alertRepo;
-    private final InvestorProfileRepository investorRepo;
+    private final RebalancingAlertRecordRepository repository;
 
     @Override
-    public RebalancingAlert save(RebalancingAlert alert) {
-        return alertRepo.save(alert);
+    public RebalancingAlertRecord create(RebalancingAlertRecord record) {
+        return repository.save(record);
     }
 
     @Override
-    public List<RebalancingAlert> getAllAlerts() {
-        return alertRepo.findAll();
+    public List<RebalancingAlertRecord> getAllAlerts() {
+        return repository.findAll();
     }
 
     @Override
-    public List<RebalancingAlert> getAlertsForInvestor(String investorId) {
-        return alertRepo.findByInvestorId(investorId);
+    public List<RebalancingAlertRecord> getAlertsForInvestor(String investorId) {
+        return repository.findByInvestorId(investorId);
     }
 }

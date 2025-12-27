@@ -7,6 +7,5 @@ import java.util.List;
 
 @Repository
 public interface HoldingRecordRepository extends JpaRepository<HoldingRecord, Long> {
-    // The service needs to find holdings by the Investor ID
-    List<HoldingRecord> findByInvestorId(Long investorId);
+    List<HoldingRecord> findByValueGreaterThan(double value);
 }

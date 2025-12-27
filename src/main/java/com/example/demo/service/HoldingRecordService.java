@@ -5,6 +5,7 @@ import com.example.demo.entity.HoldingRecord;
 import java.util.List;
 
 public interface HoldingRecordService {
-    HoldingRecord createHolding(HoldingRecord holding);
+    HoldingRecord recordHolding(HoldingRecord record);
+    HoldingRecord getHoldingById(long id);
     List<HoldingRecord> getHoldingsByInvestor(Long investorId);
 }

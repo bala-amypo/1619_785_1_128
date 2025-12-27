@@ -4,7 +4,9 @@ import com.example.demo.entity.InvestorProfile;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface InvestorProfileService {
 
     InvestorProfile createInvestor(InvestorProfile investor);

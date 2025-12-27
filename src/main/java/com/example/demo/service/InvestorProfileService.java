@@ -7,8 +7,10 @@ import java.util.Optional;
 
 public interface InvestorProfileService {
 
-    InvestorProfile createInvestor(InvestorProfile investor);
-
+    @Override
+public Optional<InvestorProfile> findByInvestorId(Long investorId) {
+    return repository.findByInvestorId(investorId);
+}
     InvestorProfile getInvestorById(Long id);
 
     List<InvestorProfile> getAllInvestors();

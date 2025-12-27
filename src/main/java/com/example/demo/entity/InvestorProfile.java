@@ -11,7 +11,7 @@ import lombok.*;
 public class InvestorProfile{
 
     @Id
-    private String investorId;
+    private Long investorId;
 
     private String name;
 }

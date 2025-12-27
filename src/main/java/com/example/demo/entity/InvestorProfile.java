@@ -14,4 +14,5 @@ public class InvestorProfile{
     private Long investorId;
 
     private String name;
+    private boolean active;
 }

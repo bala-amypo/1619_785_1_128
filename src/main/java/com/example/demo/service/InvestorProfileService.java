@@ -13,7 +13,7 @@ public interface InvestorProfileService {
 
     List<InvestorProfile> getAllInvestors();
 
-    InvestorProfile updateInvestorStatus(Long id, boolean active);
+    InvestorProfile updateInvestorStatus(Long id, Boolean active);
 
-    Optional<InvestorProfile> findByInvestorId(Long investorId);
+    Optional<InvestorProfile> findByInvestorId(String investorId);
 }

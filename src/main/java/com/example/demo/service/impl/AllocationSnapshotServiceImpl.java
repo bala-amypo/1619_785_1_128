@@ -26,7 +26,6 @@ public class AllocationSnapshotServiceImpl implements AllocationSnapshotService 
         this.ruleRepo = ruleRepo;
         this.alertRepo = alertRepo;
     }
-`
     @Override
     public List<AllocationSnapshotRecord> getSnapshotsByInvestor(Long investorId) {
         return snapshotRepo.findByInvestorId(investorId);

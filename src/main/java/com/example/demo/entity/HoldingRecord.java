@@ -1,47 +1,40 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "holding_record")
 public class HoldingRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private Long investorId;  // <-- MUST EXIST
 
-    private double currentValue;
+    private String holdingData;
 
-    @Enumerated(EnumType.STRING)
-    private com.example.demo.entity.enums.AssetClassType assetClassType;
-
-    private LocalDateTime createdAt;
-
-    public HoldingRecord() {
+    // Getters and Setters
+    public Long getId() {
+        return id;
     }
 
-    public HoldingRecord(String name, double currentValue, com.example.demo.entity.enums.AssetClassType assetClassType) {
-        this.name = name;
-        this.currentValue = currentValue;
-        this.assetClassType = assetClassType;
-        this.createdAt = LocalDateTime.now();
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getInvestorId() {
+        return investorId;
+    }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public void setInvestorId(Long investorId) {
+        this.investorId = investorId;
+    }
 
-    public double getCurrentValue() { return currentValue; }
-    public void setCurrentValue(double currentValue) { this.currentValue = currentValue; }
+    public String getHoldingData() {
+        return holdingData;
+    }
 
-    public com.example.demo.entity.enums.AssetClassType getAssetClassType() { return assetClassType; }
-    public void setAssetClassType(com.example.demo.entity.enums.AssetClassType assetClassType) { this.assetClassType = assetClassType; }
-
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public void setHoldingData(String holdingData) {
+        this.holdingData = holdingData;
+    }
 }

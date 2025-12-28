@@ -9,7 +9,7 @@ public class AllocationSnapshotRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long investorId;   // <-- ADD THIS FIELD
+    private Long investorId;  // <-- MUST EXIST
 
     private String snapshotData;
 

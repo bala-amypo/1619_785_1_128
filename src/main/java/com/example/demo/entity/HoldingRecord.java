@@ -1,52 +1,42 @@
-package com.example.demo.entity;
+package com.example.demo.model;
 
 import jakarta.persistence.*;
-import com.example.demo.entity.enums.AssetClassType;
+import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "holding_record")
 public class HoldingRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long investorId;
-
     @Enumerated(EnumType.STRING)
-    private AssetClassType assetClass; // <-- Add this field
+    private AssetClassType assetClass;
 
-    private String holdingData;
+    private double value;
 
-    // Getters and Setters
-    public Long getId() {
-        return id;
-    }
+    private LocalDateTime date;
 
-    public void setId(Long id) {
+    public HoldingRecord() {} // no-arg constructor
+
+    public HoldingRecord(Long id, AssetClassType assetClass, double value, LocalDateTime date) {
         this.id = id;
-    }
-
-    public Long getInvestorId() {
-        return investorId;
-    }
-
-    public void setInvestorId(Long investorId) {
-        this.investorId = investorId;
-    }
-
-    public AssetClassType getAssetClass() {
-        return assetClass;
-    }
-
-    public void setAssetClass(AssetClassType assetClass) {
         this.assetClass = assetClass;
+        this.value = value;
+        this.date = date;
     }
 
-    public String getHoldingData() {
-        return holdingData;
-    }
+    // Getters & setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setHoldingData(String holdingData) {
-        this.holdingData = holdingData;
-    }
+    public AssetClassType getAssetClass() { return assetClass; }
+    public void setAssetClass(AssetClassType assetClass) { this.assetClass = assetClass; }
+
+    public double getValue() { return value; }
+    public void setValue(double value) { this.value = value; }
+
+    public LocalDateTime getDate() { return date; }
+    public void setDate(LocalDateTime date) { this.date = date; }
 }

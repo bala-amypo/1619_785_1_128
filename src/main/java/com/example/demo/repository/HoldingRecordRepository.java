@@ -1,14 +1,10 @@
 package com.example.demo.repository;
 
-import java.util.List;
+import com.example.demo.model.HoldingRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.example.demo.entity.HoldingRecord;
-import com.example.demo.entity.enums.AssetClassType;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface HoldingRecordRepository extends JpaRepository<HoldingRecord, Long> {
-
-    List<HoldingRecord> findByInvestorId(Long investorId);
-
-    // Add this method to fix your compilation error
-    List<HoldingRecord> findByInvestorIdAndAssetClass(Long investorId, AssetClassType assetClass);
+    // Custom queries if needed
 }

@@ -8,6 +8,7 @@ public interface AllocationSnapshotService {
     AllocationSnapshotRecord getSnapshotById(Long id);
     AllocationSnapshotRecord saveSnapshot(AllocationSnapshotRecord snapshot);
     void deleteSnapshot(Long id);
+    AllocationSnapshotRecord createSnapshot(AllocationSnapshotRecord record);
 
     // Must match the service impl
     List<AllocationSnapshotRecord> getSnapshotsByInvestor(Long investorId);

@@ -74,4 +74,9 @@ public class AllocationSnapshotServiceImpl implements AllocationSnapshotService 
             allocationSnapshotRecordRepository.save(snapshot);
         }
     }
+    @Override
+public List<AllocationSnapshotRecord> getSnapshotsByInvestor(Long investorId) {
+    return allocationSnapshotRecordRepository.findByInvestorId(investorId);
+}
+
 }

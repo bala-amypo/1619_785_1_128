@@ -4,12 +4,11 @@ import com.example.demo.entity.AllocationSnapshotRecord;
 import java.util.List;
 
 public interface AllocationSnapshotService {
-
-    AllocationSnapshotRecord createSnapshot(AllocationSnapshotRecord record);
-
-    AllocationSnapshotRecord getSnapshotById(long id);
-
     List<AllocationSnapshotRecord> getAllSnapshots();
+    AllocationSnapshotRecord getSnapshotById(Long id);
+    AllocationSnapshotRecord saveSnapshot(AllocationSnapshotRecord snapshot);
+    void deleteSnapshot(Long id);
 
+    // Must match the service impl
     List<AllocationSnapshotRecord> getSnapshotsByInvestor(Long investorId);
 }

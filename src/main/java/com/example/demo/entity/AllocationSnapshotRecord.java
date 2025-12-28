@@ -1,10 +1,10 @@
 package com.example.demo.entity;
 
+import com.example.demo.entity.enums.AssetClassType;
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "allocation_snapshot_record")
+@Table(name = "allocation_snapshot")
 public class AllocationSnapshotRecord {
 
     @Id
@@ -13,28 +13,25 @@ public class AllocationSnapshotRecord {
 
     private Long investorId;
 
-    private double totalValue;
+    @Enumerated(EnumType.STRING)
+    private AssetClassType assetClass;
 
-    private LocalDateTime snapshotDate;
+    private Double currentValue;
+    private Double targetPercentage;
 
-    public AllocationSnapshotRecord() {}
-
-    public AllocationSnapshotRecord(Long investorId, double totalValue, LocalDateTime snapshotDate) {
-        this.investorId = investorId;
-        this.totalValue = totalValue;
-        this.snapshotDate = snapshotDate;
-    }
-
-    // Getters & setters
+    // Getters and setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
     public Long getInvestorId() { return investorId; }
     public void setInvestorId(Long investorId) { this.investorId = investorId; }
 
-    public double getTotalValue() { return totalValue; }
-    public void setTotalValue(double totalValue) { this.totalValue = totalValue; }
+    public AssetClassType getAssetClass() { return assetClass; }
+    public void setAssetClass(AssetClassType assetClass) { this.assetClass = assetClass; }
 
-    public LocalDateTime getSnapshotDate() { return snapshotDate; }
-    public void setSnapshotDate(LocalDateTime snapshotDate) { this.snapshotDate = snapshotDate; }
+    public Double getCurrentValue() { return currentValue; }
+    public void setCurrentValue(Double currentValue) { this.currentValue = currentValue; }
+
+    public Double getTargetPercentage() { return targetPercentage; }
+    public void setTargetPercentage(Double targetPercentage) { this.targetPercentage = targetPercentage; }
 }

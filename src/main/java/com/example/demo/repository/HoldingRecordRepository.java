@@ -11,6 +11,8 @@ import java.util.List;
 public interface HoldingRecordRepository
         extends JpaRepository<HoldingRecord, Long> {
 
+    List<HoldingRecord> findByInvestorId(Long investorId);
+
     List<HoldingRecord> findByInvestorIdAndAssetClass(
             Long investorId,
             AssetClassType assetClass

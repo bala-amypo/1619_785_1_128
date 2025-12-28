@@ -17,8 +17,8 @@ public class AllocationSnapshotServiceImpl implements AllocationSnapshotService 
     }
 
     @Override
-    public AllocationSnapshotRecord computeSnapshot(long id) {
-        return allocationSnapshotRecordRepository.findById(id).orElse(new AllocationSnapshotRecord());
+    public AllocationSnapshotRecord createSnapshot(AllocationSnapshotRecord record) {
+        return allocationSnapshotRecordRepository.save(record);
     }
 
     @Override
@@ -29,5 +29,10 @@ public class AllocationSnapshotServiceImpl implements AllocationSnapshotService 
     @Override
     public List<AllocationSnapshotRecord> getAllSnapshots() {
         return allocationSnapshotRecordRepository.findAll();
+    }
+
+    @Override
+    public List<AllocationSnapshotRecord> getSnapshotsByInvestor(Long investorId) {
+        return allocationSnapshotRecordRepository.findByInvestorId(investorId);
     }
 }

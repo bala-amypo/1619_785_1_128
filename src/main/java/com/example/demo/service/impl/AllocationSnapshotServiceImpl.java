@@ -1,13 +1,8 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.entity.AllocationSnapshotRecord;
-import com.example.demo.repository.AllocationSnapshotRecordRepository;
-import com.example.demo.repository.HoldingRecordRepository;
-import com.example.demo.repository.AssetClassAllocationRuleRepository;
-import com.example.demo.repository.RebalancingAlertRecordRepository;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
+import com.example.demo.service.AllocationSnapshotService;
+import com.example.demo.entity.AllocationSnapshotRecord;
 import java.util.List;
 
 @Service

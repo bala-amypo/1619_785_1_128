@@ -1,48 +1,51 @@
 package com.example.demo.entity;
 
+import java.time.LocalDateTime;
+
 import com.example.demo.entity.enums.AssetClassType;
+
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "holding_records")
 public class HoldingRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "investor_id", nullable = false)
     private Long investorId;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "asset_class")
     private AssetClassType assetClass;
 
-    @Column(name = "asset_name")
-    private String assetName;
+    private double value;
 
-    @Column(name = "quantity")
-    private Double quantity;
+    private LocalDateTime timestamp;
 
-    @Column(name = "current_value")
-    private Double currentValue;
+    // REQUIRED by JPA
+    public HoldingRecord() {}
 
-    // ===== REQUIRED BY TESTS =====
+    // REQUIRED by TEST
+    public HoldingRecord(Long investorId,
+                         AssetClassType assetClass,
+                         double value,
+                         LocalDateTime timestamp) {
+        this.investorId = investorId;
+        this.assetClass = assetClass;
+        this.value = value;
+        this.timestamp = timestamp;
+    }
+
+    // getters & setters
     public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
     public Long getInvestorId() { return investorId; }
-    public void setInvestorId(Long investorId) { this.investorId = investorId; }
-
     public AssetClassType getAssetClass() { return assetClass; }
+    public double getValue() { return value; }
+    public LocalDateTime getTimestamp() { return timestamp; }
+
+    public void setId(Long id) { this.id = id; }
+    public void setInvestorId(Long investorId) { this.investorId = investorId; }
     public void setAssetClass(AssetClassType assetClass) { this.assetClass = assetClass; }
-
-    public String getAssetName() { return assetName; }
-    public void setAssetName(String assetName) { this.assetName = assetName; }
-
-    public Double getQuantity() { return quantity; }
-    public void setQuantity(Double quantity) { this.quantity = quantity; }
-
-    public Double getCurrentValue() { return currentValue; }
-    public void setCurrentValue(Double currentValue) { this.currentValue = currentValue; }
+    public void setValue(double value) { this.value = value; }
+    public void setTimestamp(LocalDateTime timestamp) { this.timestamp = timestamp; }
 }

@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AllocationSnapshotRecordRepository extends JpaRepository<AllocationSnapshotRecord, Long> {
-    // Custom queries if needed
 }

@@ -1,11 +1,9 @@
 package com.example.demo.entity;
 
+import java.time.LocalDateTime;
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
-
 @Entity
-@Table(name = "allocation_snapshot_records")
 public class AllocationSnapshotRecord {
 
     @Id
@@ -13,60 +11,32 @@ public class AllocationSnapshotRecord {
     private Long id;
 
     private Long investorId;
-    private LocalDateTime snapshotDate;
-    private Double totalPortfolioValue;
 
-    @Column(columnDefinition = "TEXT")
-    private String breakdownJson;
+    private LocalDateTime createdAt;
 
-    public AllocationSnapshotRecord() {
-    }
-
-    public AllocationSnapshotRecord(Long investorId, LocalDateTime snapshotDate,
-                                    Double totalPortfolioValue, String breakdownJson) {
-        this.investorId = investorId;
-        this.snapshotDate = snapshotDate;
-        this.totalPortfolioValue = totalPortfolioValue;
-        this.breakdownJson = breakdownJson;
-    }
+    public AllocationSnapshotRecord() {}
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Long getInvestorId() {
         return investorId;
     }
 
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public void setInvestorId(Long investorId) {
         this.investorId = investorId;
     }
 
-    public LocalDateTime getSnapshotDate() {
-        return snapshotDate;
-    }
-
-    public void setSnapshotDate(LocalDateTime snapshotDate) {
-        this.snapshotDate = snapshotDate;
-    }
-
-    public Double getTotalPortfolioValue() {
-        return totalPortfolioValue;
-    }
-
-    public void setTotalPortfolioValue(Double totalPortfolioValue) {
-        this.totalPortfolioValue = totalPortfolioValue;
-    }
-
-    public String getBreakdownJson() {
-        return breakdownJson;
-    }
-
-    public void setBreakdownJson(String breakdownJson) {
-        this.breakdownJson = breakdownJson;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }

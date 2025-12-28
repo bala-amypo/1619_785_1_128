@@ -1,35 +1,30 @@
 package com.example.demo.service.impl;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
 import com.example.demo.entity.AllocationSnapshotRecord;
 import com.example.demo.repository.AllocationSnapshotRecordRepository;
-import com.example.demo.service.AllocationSnapshotService;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
-public class AllocationSnapshotServiceImpl
-        implements AllocationSnapshotService {
+public class AllocationSnapshotServiceImpl {
 
-    private final AllocationSnapshotRecordRepository repository;
+    private final AllocationSnapshotRecordRepository allocationSnapshotRecordRepository;
 
-    public AllocationSnapshotServiceImpl(
-            AllocationSnapshotRecordRepository repository) {
-        this.repository = repository;
+    public AllocationSnapshotServiceImpl(AllocationSnapshotRecordRepository allocationSnapshotRecordRepository) {
+        this.allocationSnapshotRecordRepository = allocationSnapshotRecordRepository;
     }
 
-    @Override
-    public AllocationSnapshotRecord createSnapshot(
-            AllocationSnapshotRecord record) {
-        record.setCreatedAt(LocalDateTime.now());
-        return repository.save(record);
+    public AllocationSnapshotRecord computeSnapshot(long id) {
+        // Example logic for snapshot calculation
+        return allocationSnapshotRecordRepository.findById(id).orElse(new AllocationSnapshotRecord());
     }
 
-    @Override
-    public List<AllocationSnapshotRecord> getSnapshotsByInvestor(
-            Long investorId) {
-        return repository.findByInvestorId(investorId);
+    public AllocationSnapshotRecord getSnapshotById(long id) {
+        return allocationSnapshotRecordRepository.findById(id).orElse(null);
+    }
+
+    public List<AllocationSnapshotRecord> getAllSnapshots() {
+        return allocationSnapshotRecordRepository.findAll();
     }
 }

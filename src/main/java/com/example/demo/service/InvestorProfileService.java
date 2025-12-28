@@ -1,23 +1,14 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.InvestorProfile;
-
+import com.example.demo.exception.ResourceNotFoundException;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.stereotype.Service;
 
-@Service
 public interface InvestorProfileService {
-
     InvestorProfile createInvestor(InvestorProfile investor);
-
-    InvestorProfile getInvestorById(Long id);
-
-    List<InvestorProfile> getAllInvestors();
-
-    InvestorProfile updateInvestorStatus(Long id, Boolean active);
-
+    InvestorProfile getInvestorById(Long id) throws ResourceNotFoundException;
     Optional<InvestorProfile> findByInvestorId(String investorId);
-    void deleteInvestor(Long investorId);
-
+    List<InvestorProfile> getAllInvestors();
+    InvestorProfile updateInvestorStatus(Long id, boolean active) throws ResourceNotFoundException;
 }

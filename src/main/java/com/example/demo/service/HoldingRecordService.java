@@ -1,19 +1,14 @@
 package com.example.demo.service;
 
-import java.util.List;
-
 import com.example.demo.entity.HoldingRecord;
-import com.example.demo.entity.enums.AssetClassType;
+import com.example.demo.entity.enums.AssetClassType; // Crucial import
+import java.util.List;
+import java.util.Optional;
 
 public interface HoldingRecordService {
-
-    HoldingRecord recordHolding(HoldingRecord record);
-
+    HoldingRecord recordHolding(HoldingRecord holding);
     List<HoldingRecord> getHoldingsByInvestor(Long investorId);
-
-    HoldingRecord getHoldingById(Long id);
-
-    List<HoldingRecord> findByInvestorAndAssetClass(
-            long investorId,
-            AssetClassType assetClass);
+    Optional<HoldingRecord> getHoldingById(Long id);
+    List<HoldingRecord> getAllHoldings();
+    List<HoldingRecord> getHoldingsByInvestorAndAssetClass(Long investorId, AssetClassType assetClass);
 }

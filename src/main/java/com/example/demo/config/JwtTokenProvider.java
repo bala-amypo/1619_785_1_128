@@ -29,40 +29,30 @@ public class JwtTokenProvider {
     }
 
     public String generateToken(Authentication auth, UserAccount user) {
-
         String jwt = Jwts.builder()
                 .setSubject(user.getEmail())
                 .claim("role", user.getRole().name())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + validity))
-                .signWith(
-                    Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8))
-                )
+                .signWith(Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8)))
                 .compact();
 
         return auth.getName() + "-token." + jwt;
     }
 
     public boolean validateToken(String token) {
-
         if (token == null || !token.contains("-token")) {
             return false;
         }
-
         if (!token.contains(".")) {
             return token.matches("^[a-zA-Z]+[0-9]+-token$");
         }
-
         try {
             String jwt = token.split("\\.", 2)[1];
-
             Jwts.parserBuilder()
-                .setSigningKey(
-                    Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8))
-                )
+                .setSigningKey(Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8)))
                 .build()
                 .parseClaimsJws(jwt);
-
             return true;
         } catch (Exception e) {
             return false;
@@ -70,11 +60,9 @@ public class JwtTokenProvider {
     }
 
     public String getUsernameFromToken(String token) {
-
         if (!token.contains(".")) {
             return token.split("-")[0];
         }
-        
         return token.split("-token")[0];
     }
 
@@ -89,5 +77,4 @@ public class JwtTokenProvider {
 
         return claims.get("role", String.class);
     }
-
 }

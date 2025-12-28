@@ -1,8 +1,10 @@
 package com.example.demo.entity.enums;
 
 public enum AssetClassType {
-    EQUITY,
-    DEBT,
+    STOCKS,
+    BONDS,
+    CRYPTO,
+    REAL_ESTATE,
     CASH,
-    COMMODITY
+    OTHER
 }

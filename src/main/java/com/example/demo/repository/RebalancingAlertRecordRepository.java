@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RebalancingAlertRecordRepository extends JpaRepository<RebalancingAlertRecord, Long> {
+    List<Entity> findByInvestorId(Long investorId);
 }

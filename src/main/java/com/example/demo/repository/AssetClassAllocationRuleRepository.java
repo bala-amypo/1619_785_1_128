@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AssetClassAllocationRuleRepository extends JpaRepository<AssetClassAllocationRule, Long> {
     AssetClassAllocationRule findByAssetClass(AssetClassType assetClass);
+    List<Entity> findByInvestorId(Long investorId);
 }

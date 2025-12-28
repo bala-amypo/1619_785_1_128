@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface HoldingRecordRepository
         extends JpaRepository<HoldingRecord, Long> {
-    // DO NOT add findById()
+    // Do NOT add findById()
 }

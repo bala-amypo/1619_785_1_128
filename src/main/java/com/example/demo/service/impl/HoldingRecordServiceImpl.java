@@ -1,44 +1,39 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.HoldingRecord;
-import com.example.demo.entity.enums.AssetClassType;
 import com.example.demo.repository.HoldingRecordRepository;
 import com.example.demo.service.HoldingRecordService;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class HoldingRecordServiceImpl implements HoldingRecordService {
 
-    private final HoldingRecordRepository repository;
+    private final HoldingRecordRepository holdingRecordRepository;
 
-    public HoldingRecordServiceImpl(HoldingRecordRepository repository) {
-        this.repository = repository;
+    public HoldingRecordServiceImpl(HoldingRecordRepository holdingRecordRepository) {
+        this.holdingRecordRepository = holdingRecordRepository;
     }
 
     @Override
-    public HoldingRecord recordHolding(HoldingRecord record) {
-        return repository.save(record);
+    public HoldingRecord save(HoldingRecord record) {
+        return holdingRecordRepository.save(record);
     }
 
     @Override
-    public List<HoldingRecord> getHoldingsByInvestor(Long investorId) {
-        // Fix: Make sure this matches your Repository method name
-        return repository.findByInvestorId(investorId);
+    public Optional<HoldingRecord> findById(Long id) {
+        return holdingRecordRepository.findById(id);
     }
 
     @Override
-    public HoldingRecord getHoldingById(long id) {
-        return repository.findById(id).orElse(null);
+    public List<HoldingRecord> findAll() {
+        return holdingRecordRepository.findAll();
     }
 
     @Override
-    public List<HoldingRecord> findByValueGreaterThan(double value) {
-        return repository.findByValueGreaterThan(value);
-    }
-
-    @Override
-    public List<HoldingRecord> findByInvestorAndAssetClass(long investorId, AssetClassType assetClass) {
-        return repository.findByInvestorAndAssetClass(investorId, assetClass);
+    public void deleteById(Long id) {
+        holdingRecordRepository.deleteById(id);
     }
 }

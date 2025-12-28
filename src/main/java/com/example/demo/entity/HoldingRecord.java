@@ -10,9 +10,6 @@ public class HoldingRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /**
-     * Investor ID required by InvestmentSystemTest
-     */
     @Column(name = "investor_id", nullable = false)
     private Long investorId;
 
@@ -31,12 +28,12 @@ public class HoldingRecord {
         return id;
     }
 
-    // Test explicitly calls setId()
+    // Test explicitly uses this
     public void setId(Long id) {
         this.id = id;
     }
 
-    // Test explicitly calls getInvestorId()
+    // Test explicitly uses this
     public Long getInvestorId() {
         return investorId;
     }
@@ -45,7 +42,7 @@ public class HoldingRecord {
         this.investorId = investorId;
     }
 
-    // ===== OPTIONAL BUT SAFE =====
+    // ===== STANDARD GETTERS / SETTERS =====
 
     public String getAssetName() {
         return assetName;

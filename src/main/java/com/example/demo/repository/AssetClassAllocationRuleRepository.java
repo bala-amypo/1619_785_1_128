@@ -1,16 +1,11 @@
 package com.example.demo.repository;
 
 import com.example.demo.entity.AssetClassAllocationRule;
+import com.example.demo.entity.enums.AssetClassType;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface AssetClassAllocationRuleRepository extends JpaRepository<AssetClassAllocationRule, Long> {
-    
-    // Fix: Add missing HQL method found in Test line 618
-    @Query("SELECT r FROM AssetClassAllocationRule r WHERE r.investorId = ?1 AND r.active = true")
-    List<AssetClassAllocationRule> findActiveRulesHql(Long investorId);
-
-    List<AssetClassAllocationRule> findByInvestorIdAndActiveTrue(Long investorId);
-    List<AssetClassAllocationRule> findByInvestorId(Long investorId);
+    AssetClassAllocationRule findByAssetClass(AssetClassType assetClass);
 }

@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import com.example.demo.entity.enums.AssetClassType;
 
 @Entity
 public class HoldingRecord {
@@ -9,7 +10,10 @@ public class HoldingRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long investorId;  // <-- MUST EXIST
+    private Long investorId;
+
+    @Enumerated(EnumType.STRING)
+    private AssetClassType assetClass; // <-- Add this field
 
     private String holdingData;
 
@@ -28,6 +32,14 @@ public class HoldingRecord {
 
     public void setInvestorId(Long investorId) {
         this.investorId = investorId;
+    }
+
+    public AssetClassType getAssetClass() {
+        return assetClass;
+    }
+
+    public void setAssetClass(AssetClassType assetClass) {
+        this.assetClass = assetClass;
     }
 
     public String getHoldingData() {

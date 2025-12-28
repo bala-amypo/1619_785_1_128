@@ -1,47 +1,77 @@
 package com.example.demo.service.impl;
 
-import org.springframework.stereotype.Service;
-import com.example.demo.service.AllocationSnapshotService;
 import com.example.demo.entity.AllocationSnapshotRecord;
+import com.example.demo.entity.HoldingRecord;
+import com.example.demo.entity.AssetClassAllocationRule;
+import com.example.demo.entity.RebalancingAlertRecord;
+import com.example.demo.entity.enums.AssetClassType;
+import com.example.demo.repository.AllocationSnapshotRecordRepository;
+import com.example.demo.repository.HoldingRecordRepository;
+import com.example.demo.repository.AssetClassAllocationRuleRepository;
+import com.example.demo.repository.RebalancingAlertRecordRepository;
+import com.example.demo.service.AllocationSnapshotService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
-public class AllocationSnapshotServiceImpl {
+public class AllocationSnapshotServiceImpl implements AllocationSnapshotService {
 
-    private final AllocationSnapshotRecordRepository snapshotRepo;
-    private final HoldingRecordRepository holdingRepo;
-    private final AssetClassAllocationRuleRepository ruleRepo;
-    private final RebalancingAlertRecordRepository alertRepo;
+    private final AllocationSnapshotRecordRepository allocationSnapshotRecordRepository;
+    private final HoldingRecordRepository holdingRecordRepository;
+    private final AssetClassAllocationRuleRepository assetClassAllocationRuleRepository;
+    private final RebalancingAlertRecordRepository rebalancingAlertRecordRepository;
 
+    @Autowired
     public AllocationSnapshotServiceImpl(
-        AllocationSnapshotRecordRepository snapshotRepo,
-        HoldingRecordRepository holdingRepo,
-        AssetClassAllocationRuleRepository ruleRepo,
-        RebalancingAlertRecordRepository alertRepo
+            AllocationSnapshotRecordRepository allocationSnapshotRecordRepository,
+            HoldingRecordRepository holdingRecordRepository,
+            AssetClassAllocationRuleRepository assetClassAllocationRuleRepository,
+            RebalancingAlertRecordRepository rebalancingAlertRecordRepository
     ) {
-        this.snapshotRepo = snapshotRepo;
-        this.holdingRepo = holdingRepo;
-        this.ruleRepo = ruleRepo;
-        this.alertRepo = alertRepo;
+        this.allocationSnapshotRecordRepository = allocationSnapshotRecordRepository;
+        this.holdingRecordRepository = holdingRecordRepository;
+        this.assetClassAllocationRuleRepository = assetClassAllocationRuleRepository;
+        this.rebalancingAlertRecordRepository = rebalancingAlertRecordRepository;
     }
 
-    public AllocationSnapshotRecord computeSnapshot(long investorId) {
-        // Example logic for snapshot
-        double totalValue = holdingRepo.findAll() // replace with filtering by investorId
-                .stream()
-                .mapToDouble(h -> h.getValue())
-                .sum();
-
-        AllocationSnapshotRecord snapshot = new AllocationSnapshotRecord(
-                investorId,
-                totalValue,
-                LocalDateTime.now()
-        );
-
-        return snapshotRepo.save(snapshot);
-    }
-
+    @Override
     public List<AllocationSnapshotRecord> getAllSnapshots() {
-        return snapshotRepo.findAll();
+        return allocationSnapshotRecordRepository.findAll();
+    }
+
+    @Override
+    public AllocationSnapshotRecord getSnapshotById(Long id) {
+        return allocationSnapshotRecordRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public AllocationSnapshotRecord saveSnapshot(AllocationSnapshotRecord snapshot) {
+        return allocationSnapshotRecordRepository.save(snapshot);
+    }
+
+    @Override
+    public void deleteSnapshot(Long id) {
+        allocationSnapshotRecordRepository.deleteById(id);
+    }
+
+    // Example method using holdings and rules
+    @Override
+    public void createSnapshotForInvestor(Long investorId) {
+        List<HoldingRecord> holdings = holdingRecordRepository.findByInvestorId(investorId);
+
+        for (HoldingRecord h : holdings) {
+            AssetClassAllocationRule rule = assetClassAllocationRuleRepository.findByAssetClass(h.getAssetClass());
+
+            AllocationSnapshotRecord snapshot = new AllocationSnapshotRecord();
+            snapshot.setInvestorId(investorId);
+            snapshot.setAssetClass(h.getAssetClass());
+            snapshot.setCurrentValue(h.getValue());
+            snapshot.setTargetPercentage(rule.getTargetPercentage());
+
+            allocationSnapshotRecordRepository.save(snapshot);
+        }
     }
 }

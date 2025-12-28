@@ -1,23 +1,32 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.entity.AllocationSnapshotRecord;
+import com.example.demo.repository.AllocationSnapshotRepository;
 import com.example.demo.service.AllocationSnapshotService;
-import com.example.demo.repository.HoldingRecordRepository;
 import org.springframework.stereotype.Service;
 
-@Service   // 🔴 THIS IS CRITICAL
-public class AllocationSnapshotServiceImpl implements AllocationSnapshotService {
+import java.util.List;
 
-    private final HoldingRecordRepository holdingRecordRepository;
+@Service
+public class AllocationSnapshotServiceImpl
+        implements AllocationSnapshotService {
+
+    private final AllocationSnapshotRepository repository;
 
     public AllocationSnapshotServiceImpl(
-            HoldingRecordRepository holdingRecordRepository) {
-        this.holdingRecordRepository = holdingRecordRepository;
+            AllocationSnapshotRepository repository) {
+        this.repository = repository;
     }
 
     @Override
-    public void generateSnapshot(Long investorId) {
-        // Minimal implementation to satisfy controller & tests
-        // You can add real snapshot logic later
-        holdingRecordRepository.findByInvestorId(investorId);
+    public AllocationSnapshotRecord createSnapshot(
+            AllocationSnapshotRecord record) {
+        return repository.save(record);
+    }
+
+    @Override
+    public List<AllocationSnapshotRecord> getSnapshotsByInvestor(
+            Long investorId) {
+        return repository.findByInvestorId(investorId);
     }
 }

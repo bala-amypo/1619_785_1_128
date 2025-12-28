@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import com.example.demo.entity.enums.AssetClassType;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,6 +14,10 @@ public class HoldingRecord {
     @Column(name = "investor_id", nullable = false)
     private Long investorId;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "asset_class")
+    private AssetClassType assetClass;
+
     @Column(name = "asset_name")
     private String assetName;
 
@@ -23,48 +28,21 @@ public class HoldingRecord {
     private Double currentValue;
 
     // ===== REQUIRED BY TESTS =====
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public Long getId() {
-        return id;
-    }
+    public Long getInvestorId() { return investorId; }
+    public void setInvestorId(Long investorId) { this.investorId = investorId; }
 
-    // Test explicitly uses this
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public AssetClassType getAssetClass() { return assetClass; }
+    public void setAssetClass(AssetClassType assetClass) { this.assetClass = assetClass; }
 
-    // Test explicitly uses this
-    public Long getInvestorId() {
-        return investorId;
-    }
+    public String getAssetName() { return assetName; }
+    public void setAssetName(String assetName) { this.assetName = assetName; }
 
-    public void setInvestorId(Long investorId) {
-        this.investorId = investorId;
-    }
+    public Double getQuantity() { return quantity; }
+    public void setQuantity(Double quantity) { this.quantity = quantity; }
 
-    // ===== STANDARD GETTERS / SETTERS =====
-
-    public String getAssetName() {
-        return assetName;
-    }
-
-    public void setAssetName(String assetName) {
-        this.assetName = assetName;
-    }
-
-    public Double getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Double quantity) {
-        this.quantity = quantity;
-    }
-
-    public Double getCurrentValue() {
-        return currentValue;
-    }
-
-    public void setCurrentValue(Double currentValue) {
-        this.currentValue = currentValue;
-    }
+    public Double getCurrentValue() { return currentValue; }
+    public void setCurrentValue(Double currentValue) { this.currentValue = currentValue; }
 }

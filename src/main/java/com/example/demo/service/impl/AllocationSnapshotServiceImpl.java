@@ -1,7 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.AllocationSnapshotRecord;
-import com.example.demo.repository.AllocationSnapshotRecordRepository;
+import com.example.demo.repository.*;
 import com.example.demo.service.AllocationSnapshotService;
 import org.springframework.stereotype.Service;
 
@@ -11,22 +11,37 @@ import java.util.List;
 public class AllocationSnapshotServiceImpl
         implements AllocationSnapshotService {
 
-    private final AllocationSnapshotRecordRepository repository;
+    private final AllocationSnapshotRecordRepository snapshotRepo;
+    private final HoldingRecordRepository holdingRepo;
+    private final AssetClassAllocationRuleRepository ruleRepo;
+    private final RebalancingAlertRecordRepository alertRepo;
 
     public AllocationSnapshotServiceImpl(
-            AllocationSnapshotRecordRepository repository) {
-        this.repository = repository;
+            AllocationSnapshotRecordRepository snapshotRepo,
+            HoldingRecordRepository holdingRepo,
+            AssetClassAllocationRuleRepository ruleRepo,
+            RebalancingAlertRecordRepository alertRepo) {
+
+        this.snapshotRepo = snapshotRepo;
+        this.holdingRepo = holdingRepo;
+        this.ruleRepo = ruleRepo;
+        this.alertRepo = alertRepo;
     }
 
     @Override
-    public AllocationSnapshotRecord createSnapshot(
-            AllocationSnapshotRecord record) {
-        return repository.save(record);
+    public AllocationSnapshotRecord computeSnapshot(long investorId) {
+        AllocationSnapshotRecord snapshot = new AllocationSnapshotRecord();
+        snapshot.setInvestorId(investorId);
+        return snapshotRepo.save(snapshot);
     }
 
     @Override
-    public List<AllocationSnapshotRecord> getSnapshotsByInvestor(
-            Long investorId) {
-        return repository.findByInvestorId(investorId);
+    public AllocationSnapshotRecord getSnapshotById(long id) {
+        return snapshotRepo.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<AllocationSnapshotRecord> getAllSnapshots() {
+        return snapshotRepo.findAll();
     }
 }

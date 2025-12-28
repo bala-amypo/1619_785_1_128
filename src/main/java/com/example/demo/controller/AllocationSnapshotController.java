@@ -1,33 +1,39 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.AllocationSnapshotRecord;
-import com.example.demo.service.AllocationSnapshotService;
+// import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.service.impl.AllocationSnapshotServiceImpl;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/snapshots")
 public class AllocationSnapshotController {
 
-    private final AllocationSnapshotService snapshotService;
+    private final AllocationSnapshotServiceImpl allocationSnapshotService;
 
-    public AllocationSnapshotController(AllocationSnapshotService snapshotService) {
-        this.snapshotService = snapshotService;
+    public AllocationSnapshotController(AllocationSnapshotServiceImpl allocationSnapshotService) {
+        this.allocationSnapshotService = allocationSnapshotService;
     }
 
-    @PostMapping("/{investorId}")
-    public AllocationSnapshotRecord compute(@PathVariable Long investorId) {
-        return snapshotService.computeSnapshot(investorId);
+    @PostMapping("/compute/{investorId}")
+    public ResponseEntity<AllocationSnapshotRecord> computeSnapshot(@PathVariable Long investorId) {
+        return ResponseEntity.ok(allocationSnapshotService.computeSnapshot(investorId));
+    }
+
+    @GetMapping("/investor/{investorId}")
+    public ResponseEntity<List<AllocationSnapshotRecord>> getSnapshotsByInvestor(@PathVariable Long investorId) {
+        return ResponseEntity.ok(allocationSnapshotService.getSnapshotsByInvestor(investorId));
     }
 
     @GetMapping("/{id}")
-    public AllocationSnapshotRecord getById(@PathVariable Long id) {
-        return snapshotService.getSnapshotById(id);
+    public ResponseEntity<AllocationSnapshotRecord> getSnapshotById(@PathVariable Long id) {
+        return ResponseEntity.ok(allocationSnapshotService.getSnapshotById(id));
     }
 
     @GetMapping
-    public List<AllocationSnapshotRecord> getAll() {
-        return snapshotService.getAllSnapshots();
+    public ResponseEntity<List<AllocationSnapshotRecord>> getAllSnapshots() {
+        return ResponseEntity.ok(allocationSnapshotService.getAllSnapshots());
     }
 }

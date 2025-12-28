@@ -1,36 +1,73 @@
 package com.example.demo.entity;
 
-import com.example.demo.entity.enums.AssetClassType;
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "holding_records")
 public class HoldingRecord {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
+    /**
+     * Investor ID required by InvestmentSystemTest
+     */
+    @Column(name = "investor_id", nullable = false)
     private Long investorId;
-    
-    @Enumerated(EnumType.STRING)
-    private AssetClassType assetClass;
-    
-    private Double currentValue; // Test expects getCurrentValue()
-    private LocalDateTime lastUpdated;
 
-    // No-args constructor (Required by JPA)
-    public HoldingRecord() {}
+    @Column(name = "asset_name")
+    private String assetName;
 
-    // Constructor required by the test
-    public HoldingRecord(long investorId, AssetClassType assetClass, double currentValue, LocalDateTime lastUpdated) {
-        this.investorId = investorId;
-        this.assetClass = assetClass;
-        this.currentValue = currentValue;
-        this.lastUpdated = lastUpdated;
+    @Column(name = "quantity")
+    private Double quantity;
+
+    @Column(name = "current_value")
+    private Double currentValue;
+
+    // ===== REQUIRED BY TESTS =====
+
+    public Long getId() {
+        return id;
     }
 
-    // Getters and Setters
-    public Double getCurrentValue() { return currentValue; }
-    public void setCurrentValue(Double currentValue) { this.currentValue = currentValue; }
-    // ... other getters and setters
+    // Test explicitly calls setId()
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    // Test explicitly calls getInvestorId()
+    public Long getInvestorId() {
+        return investorId;
+    }
+
+    public void setInvestorId(Long investorId) {
+        this.investorId = investorId;
+    }
+
+    // ===== OPTIONAL BUT SAFE =====
+
+    public String getAssetName() {
+        return assetName;
+    }
+
+    public void setAssetName(String assetName) {
+        this.assetName = assetName;
+    }
+
+    public Double getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Double quantity) {
+        this.quantity = quantity;
+    }
+
+    public Double getCurrentValue() {
+        return currentValue;
+    }
+
+    public void setCurrentValue(Double currentValue) {
+        this.currentValue = currentValue;
+    }
 }

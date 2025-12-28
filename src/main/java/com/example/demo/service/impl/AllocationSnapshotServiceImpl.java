@@ -1,6 +1,6 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.AllocationSnapshotRecord;
+import com.example.demo.entity.AllocationSnapshotRecord;
 import com.example.demo.repository.AllocationSnapshotRecordRepository;
 import com.example.demo.repository.HoldingRecordRepository;
 import com.example.demo.repository.AssetClassAllocationRuleRepository;

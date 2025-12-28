@@ -8,5 +8,9 @@ import java.util.List;
 
 @Repository
 public interface HoldingRecordRepository extends JpaRepository<HoldingRecord, Long> {
+    // Add this method
+    List<HoldingRecord> findByInvestorId(Long investorId);
+
+    // If you also need filtering by asset class
     List<HoldingRecord> findByInvestorIdAndAssetClass(Long investorId, AssetClassType assetClass);
 }

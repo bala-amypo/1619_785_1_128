@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import com.example.demo.entity.enums.AssetClassType;
 
 @Entity
-@Table(name = "holding_record")
+@Table(name = "holding_records")
 public class HoldingRecord {
 
     @Id
@@ -16,27 +16,38 @@ public class HoldingRecord {
     @Enumerated(EnumType.STRING)
     private AssetClassType assetClass;
 
-    private Double amount;
+    private Double value; // make sure this exists
 
-    // Constructors
-    public HoldingRecord() {}
-
-    public HoldingRecord(Long investorId, AssetClassType assetClass, Double amount) {
-        this.investorId = investorId;
-        this.assetClass = assetClass;
-        this.amount = amount;
+    // Getters and setters
+    public Long getId() {
+        return id;
     }
 
-    // Getters and Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public Long getInvestorId() { return investorId; }
-    public void setInvestorId(Long investorId) { this.investorId = investorId; }
+    public Long getInvestorId() {
+        return investorId;
+    }
 
-    public AssetClassType getAssetClass() { return assetClass; }
-    public void setAssetClass(AssetClassType assetClass) { this.assetClass = assetClass; }
+    public void setInvestorId(Long investorId) {
+        this.investorId = investorId;
+    }
 
-    public Double getAmount() { return amount; }
-    public void setAmount(Double amount) { this.amount = amount; }
+    public AssetClassType getAssetClass() {
+        return assetClass;
+    }
+
+    public void setAssetClass(AssetClassType assetClass) {
+        this.assetClass = assetClass;
+    }
+
+    public Double getValue() {  // <-- add this
+        return value;
+    }
+
+    public void setValue(Double value) {  // <-- add this
+        this.value = value;
+    }
 }
